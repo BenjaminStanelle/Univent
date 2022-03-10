@@ -26,10 +26,14 @@ const NavLinks = (props) => {
           <NavLink to="/forms">FORMS</NavLink>
         </li>
       )}
-
       {auth.isLoggedIn && (
         <li>
           <NavLink to="/clubs">CLUBS</NavLink>
+        </li>
+      )}
+      {auth.isLoggedIn && (
+        <li>
+          <NavLink to={`/${auth.userId}/places`}>MY PLACES</NavLink>
         </li>
       )}
       {auth.isLoggedIn && (
@@ -42,7 +46,6 @@ const NavLinks = (props) => {
           <NavLink to="/a1/account">MY PROFILE</NavLink>
         </li>
       )}
-
       {!auth.isLoggedIn && (
         <li>
           <NavLink to="/auth">LOGIN/SIGNUP</NavLink>
@@ -50,7 +53,6 @@ const NavLinks = (props) => {
       )}
       {auth.isLoggedIn && (
         <li>
-          {" "}
           <button onClick={auth.logout}>LOGOUT</button>
         </li>
       )}

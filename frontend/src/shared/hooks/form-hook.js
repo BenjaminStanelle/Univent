@@ -22,8 +22,8 @@ const formReducer = (state, action) => {
         },
         isValid: formIsValid
       };
-    case 'SET_DATA':    //changing data in form
-      return {  //replace old state
+    case 'SET_DATA':  //changing data in form
+      return {    //replace old state
         inputs: action.inputs,
         isValid: action.formIsValid
       };
@@ -31,7 +31,7 @@ const formReducer = (state, action) => {
       return state;
   }
 };
-  //custome hook(shares stateful logic. component that uses this hook re-renders )
+//custome hook(shares stateful logic. component that uses this hook re-renders )
   //we need to share these VVV with the component that uses our hook, so return formState, and the other two function calls
 export const useForm = (initialInputs, initialFormValidity) => { //expects initial input paramenters
   const [formState, dispatch] = useReducer(formReducer, {
@@ -48,10 +48,9 @@ export const useForm = (initialInputs, initialFormValidity) => { //expects initi
     });
   }, []);
 
-  //allows us to replace data in form, dispatch against reducer so handler in reducer case
-  const setFormData = useCallback((inputData, formValidity) => {
+  const setFormData = useCallback((inputData, formValidity) => { //allows us to replace data in form, dispatch against reducer so handler in reducer case
     dispatch({
-      type: 'SET_DATA',   //any identifier you want
+      type: 'SET_DATA',  //any identifier you want
       inputs: inputData,
       formIsValid: formValidity
     });

@@ -14,8 +14,7 @@ const UsersList = props => {
       </div>
     );
   }
-// Map each user category from the array into props for which we pass to <UserItem> as props, we're passing user information as props to useritem, 
-//then a list of all the user's <Useritem> info is being displayed in Users.js
+
   return (
     <ul className="users-list">
       {props.items.map(user => (
@@ -24,7 +23,7 @@ const UsersList = props => {
           id={user.id}
           image={user.image}
           name={user.name}
-          placeCount={user.places}
+          placeCount={user.places.length}
         />
       ))}
     </ul>

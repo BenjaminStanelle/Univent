@@ -1,36 +1,29 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Route,
   Redirect,
   Switch,
 } from "react-router-dom";
-//these are for routing
 
 import Users from "./user/pages/Users";
 import NewPlace from "./places/pages/NewPlace";
 import UserPlaces from "./places/pages/UserPlaces";
 import UpdatePlace from "./places/pages/UpdatePlace";
-// import Group from "./groups/pages/Group";
-// import Dashboard from "./dashboard/pages/Dashboard";
 import Auth from "./user/pages/Auth";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
+import { useAuth } from "./shared/hooks/auth-hook";
+
 import Formss from "./forms/Forms";
 import Events from "./events/EventList";
 import "materialize-css/dist/css/materialize.min.css";
 import Clubs from "./Clubs/Clubs";
+// import Group from "./groups/pages/Group";
+// import Dashboard from "./dashboard/pages/Dashboard";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const login = useCallback(() => {
-    setIsLoggedIn(true);
-  }, []);
-
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
-  }, []);
+  const { token, login, logout, userId } = useAuth();
 
   let routes;
   /*<Route path="/"> given a specific path in the url, components or pages between closing braces of 
@@ -41,12 +34,18 @@ const App = () => {
   */
   //switch route: when one route is true the rest of the routes will not be evaluated
   //Triggered when user logged in, they are able to see all pages except log in
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Switch>
-        <Route path="/" exact></Route>
+        <Route path="/" exact>
+          <Users />
+        </Route>
         <Route path="/clubs" exact>
           <Clubs />
+        </Route>
+
+        <Route path="/:userId/places" exact>
+          <UserPlaces />
         </Route>
         <Route path="/groups/:groupUserId/" exact></Route>
         <Route path="/events">
@@ -62,7 +61,6 @@ const App = () => {
           <Formss />
         </Route>
         <Route path="/a1/account"></Route>
-
         <Redirect to="/" />
       </Switch>
     );
@@ -89,7 +87,13 @@ const App = () => {
   //all the components listening to the context(not wrapped) will re-render it
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{
+        isLoggedIn: !!token,
+        token: token,
+        userId: userId,
+        login: login,
+        logout: logout,
+      }}
     >
       <Router>
         <MainNavigation />

@@ -23,7 +23,6 @@ export const VALIDATOR_MIN = val => ({ type: VALIDATOR_TYPE_MIN, val: val });
 export const VALIDATOR_MAX = val => ({ type: VALIDATOR_TYPE_MAX, val: val });
 export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
 export const VALIDATOR_MAV_EMAIL = () => ({ type: VALIDATOR_TYPE_MAV_EMAIL });
-
 //takes a concrete value, and array of validators
 //loops through passed in action type of validators, and checks for different type of validators we got
 export const validate = (value, validators) => {
@@ -48,7 +47,7 @@ export const validate = (value, validators) => {
       isValid = isValid && /^\S+@\S+\.\S+$/.test(value);
     }
     if (validator.type === VALIDATOR_TYPE_MAV_EMAIL) {
-      isValid = isValid && /^\S+@mavs.uta.edu$/.test(value);
+      isValid = isValid && /^\S+uta.edu$/.test(value);
     }
   }
   return isValid;
