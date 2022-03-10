@@ -11,11 +11,14 @@ import Users from "./user/pages/Users";
 import NewPlace from "./places/pages/NewPlace";
 import UserPlaces from "./places/pages/UserPlaces";
 import UpdatePlace from "./places/pages/UpdatePlace";
-import Group from "./groups/pages/Group";
-import Dashboard from "./dashboard/pages/Dashboard";
+// import Group from "./groups/pages/Group";
+// import Dashboard from "./dashboard/pages/Dashboard";
 import Auth from "./user/pages/Auth";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
+import Formss from "./forms/Forms";
+import Events from "./events/EventList";
+import "materialize-css/dist/css/materialize.min.css";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,18 +43,14 @@ const App = () => {
   if (isLoggedIn) {
     routes = (
       <Switch>
-        <Route path="/" exact>
-          
-        </Route>
+        <Route path="/" exact></Route>
         <Route path="/:userId/places" exact>
           <UserPlaces />
         </Route>
-        <Route path="/groups/:groupUserId/" exact>
-          
-        </Route>
+        <Route path="/groups/:groupUserId/" exact></Route>
         <Route path="/events">
-          
-          </Route>
+          <Events />
+        </Route>
         <Route path="/places/new" exact>
           <NewPlace />
         </Route>
@@ -59,11 +58,9 @@ const App = () => {
           <UpdatePlace />
         </Route>
         <Route path="/forms">
-          
+          <Formss />
         </Route>
-        <Route path="/a1/account">
-          
-        </Route>
+        <Route path="/a1/account"></Route>
 
         <Redirect to="/" />
       </Switch>

@@ -1,0 +1,20 @@
+.card {
+  max-width: 22rem;
+  /* margin-left: 10%; */
+}
+
+.carousel-control-prev-icon {
+  color: black;
+  background-color: black;
+  padding: 2rem;
+}
+
+.carousel-control-next-icon {
+  color: black;
+  background-color: black;
+  padding: 2rem;
+}
+
+.demo {
+  padding: 10px;
+}
