@@ -19,6 +19,7 @@ import { AuthContext } from "./shared/context/auth-context";
 import Formss from "./forms/Forms";
 import Events from "./events/EventList";
 import "materialize-css/dist/css/materialize.min.css";
+import Clubs from "./Clubs/Clubs";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,8 +45,8 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact></Route>
-        <Route path="/:userId/places" exact>
-          <UserPlaces />
+        <Route path="/clubs" exact>
+          <Clubs />
         </Route>
         <Route path="/groups/:groupUserId/" exact></Route>
         <Route path="/events">

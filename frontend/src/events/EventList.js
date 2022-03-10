@@ -1,13 +1,11 @@
 import React from "react";
 
-// import Card from "../shared/components/UIElements/Card";
-// import EventItem from "./EventItem";
-// import Button from "../shared/components/FormElements/Button";
+import Card from "../shared/components/UIElements/Card";
+import EventItem from "./EventItem";
+import Button from "../shared/components/FormElements/Button";
 import event_img1 from "../images/event_pic1.jpeg";
 import event_img2 from "../images/event_pic2.jpeg";
-// import "./EventList.css";
-import "materialize-css/dist/css/materialize.min.css";
-import M from "materialize-css";
+import "./EventList.css";
 
 const EVENTS = [
   {
@@ -37,63 +35,49 @@ const EVENTS = [
   },
 ];
 
-// const EventList = (props) => {
-//   if (EVENTS.length === 0) {
-//     return (
-//       <div className="place-list center">
-//         <Card>
-//           <h2>No places found. Maybe create one?</h2>
-//           <Button to="/places/new">Share Place</Button>
-//         </Card>
-//       </div>
-//     );
-//   }
-//   //goes through every place we have and renders a <PlaceItem> for every place
-//   return (
-//     <ul className="event-list">
-//       {EVENTS.map((e) => (
-//         <EventItem
-//           key={e.id}
-//           id={e.id}
-//           image={e.image}
-//           title={e.title}
-//           date={e.date}
-//           address={e.address}
-//         />
-//       ))}
-//     </ul>
-//   );
-// };
-
-// export default EventList;
-
-const EventList = () => {
-  var instance = M.Carousel.init({
-    fullWidth: true,
-    indicators: true,
-  });
-
+const EventList = (props) => {
+  if (EVENTS.length === 0) {
+    return (
+      <div className="place-list center">
+        <Card>
+          <h2>No places found. Maybe create one?</h2>
+          <Button to="/places/new">Share Place</Button>
+        </Card>
+      </div>
+    );
+  }
+  //goes through every place we have and renders a <PlaceItem> for every place
   return (
-    <div className="row">
-      {EVENTS.map((e) => (
-        <div key={e.id}>
-          <div className="col s12 m6 l4">
-            <div className="card small">
-              <div className="card-image">
-                <img id="event-card" src={e.image} />
-                <span className="card-title">{e.title}</span>
+    <div>
+      <div className="container">
+        <div className="card-group">
+          {EVENTS.map((ev) => (
+            <div key={ev.id} className="card">
+              <img src={ev.image} className="card-img" alt="..." />
+              <div className="card-body">
+                <h5 className="card-title">{ev.title}</h5>
+                <p className="card-text">{ev.date}</p>
+                <p className="card-text">{ev.address}</p>
               </div>
-              <div className="card-content">
-                <p>{e.date}</p>
-                <p>{e.address}</p>
-              </div>
-              <div className="card-action">
-                <a href="#">UTA Members Club</a>
+              <div className="card-footer">
+                <small className="text-muted">{ev.organizedBy}</small>
               </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
+      </div>
+      {/* {EVENTS.map((e) => (
+        <div className="card-group">
+          <EventItem
+            key={e.id}
+            id={e.id}
+            image={e.image}
+            title={e.title}
+            date={e.date}
+            address={e.address}
+          />
+        </div>
+      ))} */}
     </div>
   );
 };
