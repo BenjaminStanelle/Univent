@@ -1,12 +1,3 @@
-.event-list {
-  list-style: none;
-  margin: 1rem auto;
-  padding: 0;
-  width: 40%;
-  max-width: 35rem;
-}
-
-.event-card {
-  width: 30rem;
-  height: 30rem;
+.basic-title-styles {
+  margin-left: 1rem;
 }

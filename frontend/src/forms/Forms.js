@@ -27,8 +27,9 @@ function FormComp() {
 
   return (
     <div>
+      <h2 className="basic-title-styles">FORMS</h2>
       {FORMS_LIST.map((f) => (
-        <Card style={{ margin: "2%" }} key={f.id}>
+        <Card style={{ margin: "1%" }} key={f.id}>
           <Card.Body>
             <h2>{f.title}</h2>
             <div>

@@ -4,7 +4,7 @@ import event_img2 from "../images/event_pic2.jpeg";
 import img1 from "../images/club_pic.png";
 import img2 from "../images/club_symbol.png";
 
-import "./Clubs.css";
+// import "./Clubs.css";
 
 import { CardGroup, Card, Carousel } from "react-bootstrap";
 
@@ -151,6 +151,7 @@ const CLUBS = [
 const Clubs = () => {
   return (
     <React.Fragment>
+      <h2 className="basic-title-styles">CLUBS</h2>
       <Carousel>
         {CLUBS.map((c) => (
           <Carousel.Item interval={1000}>

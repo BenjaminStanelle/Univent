@@ -1,12 +1,22 @@
 import React from "react";
 
-import Card from "../shared/components/UIElements/Card";
-import Button from "../shared/components/FormElements/Button";
+// import Card from "../shared/components/UIElements/Card";
+// import Button from "../shared/components/FormElements/Button";
 import event_img1 from "../images/event_pic1.jpeg";
 import event_img2 from "../images/event_pic2.jpeg";
 import "./EventList.css";
 
-import { Carousel } from "react-bootstrap";
+import {
+  Carousel,
+  Form,
+  FormControl,
+  InputGroup,
+  Row,
+  Col,
+  Card,
+  CardGroup,
+  Button,
+} from "react-bootstrap";
 
 const EVENTS = [
   {
@@ -49,27 +59,70 @@ const EventList = (props) => {
   }
   //goes through every place we have and renders a <PlaceItem> for every place
   return (
-    <Carousel>
-      {EVENTS.map((ev) => (
-        <Carousel.Item interval={2500}>
-          <div className="card-group">
-            {EVENTS.map((evt) => (
-              <div key={evt.id} className="card">
-                <img src={evt.image} className="card-img" alt="..." />
-                <div className="card-body">
-                  <h5 className="card-title">{evt.title}</h5>
-                  <p className="card-text">{evt.date}</p>
-                  <p className="card-text">{evt.address}</p>
-                </div>
-                <div className="card-footer">
-                  <small className="text-muted">{evt.organizedBy}</small>
-                </div>
+    <React.Fragment>
+      <div>
+        <h2 className="basic-title-styles">EVENTS</h2>
+        <Row>
+          <Col md={3}>
+            <InputGroup
+              className="mb-3"
+              style={{ height: "10%", margin: "1%" }}
+            >
+              <FormControl
+                placeholder="Search Events"
+                aria-label="Search Events"
+                aria-describedby="basic-addon2"
+                style={{ height: "100%", width: "70%", margin: "1%" }}
+              />
+
+              <Button
+                type="submit"
+                style={{ height: "100%", width: "25%", margin: "1%" }}
+              >
+                SEARCH
+              </Button>
+              <div
+                key={"default-radio"}
+                className="mb-3"
+                style={{ margin: "1rem" }}
+              >
+                <Form.Check type="radio" id="weekend" label="Weekend" />
+                <Form.Check type="checkbox" id="tomorrow" label="Tomorrow" />
               </div>
-            ))}
-          </div>
-        </Carousel.Item>
-      ))}
-    </Carousel>
+            </InputGroup>
+          </Col>
+          <Col md={9}>
+            <Carousel>
+              {EVENTS.map((ev) => (
+                <Carousel.Item interval={2500}>
+                  <CardGroup>
+                    {EVENTS.map((evt) => (
+                      <Card style={{ margin: "1%" }}>
+                        <Card.Img
+                          variant="top"
+                          src={evt.image}
+                          style={{ height: "100%", width: "100%" }}
+                        />
+                        <Card.Body>
+                          <Card.Title>{evt.title}</Card.Title>
+                          <Card.Text>{evt.date}</Card.Text>
+                          <Card.Text>{evt.address}</Card.Text>
+                        </Card.Body>
+                        <Card.Footer>
+                          <small className="text-muted">
+                            {evt.organizedBy}
+                          </small>
+                        </Card.Footer>
+                      </Card>
+                    ))}
+                  </CardGroup>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          </Col>
+        </Row>
+      </div>
+    </React.Fragment>
   );
 };
 
