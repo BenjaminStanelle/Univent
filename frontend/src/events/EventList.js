@@ -1,11 +1,12 @@
 import React from "react";
 
 import Card from "../shared/components/UIElements/Card";
-import EventItem from "./EventItem";
 import Button from "../shared/components/FormElements/Button";
 import event_img1 from "../images/event_pic1.jpeg";
 import event_img2 from "../images/event_pic2.jpeg";
 import "./EventList.css";
+
+import { Carousel } from "react-bootstrap";
 
 const EVENTS = [
   {
@@ -48,37 +49,27 @@ const EventList = (props) => {
   }
   //goes through every place we have and renders a <PlaceItem> for every place
   return (
-    <div>
-      <div className="container">
-        <div className="card-group">
-          {EVENTS.map((ev) => (
-            <div key={ev.id} className="card">
-              <img src={ev.image} className="card-img" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">{ev.title}</h5>
-                <p className="card-text">{ev.date}</p>
-                <p className="card-text">{ev.address}</p>
+    <Carousel>
+      {EVENTS.map((ev) => (
+        <Carousel.Item interval={2500}>
+          <div className="card-group">
+            {EVENTS.map((evt) => (
+              <div key={evt.id} className="card">
+                <img src={evt.image} className="card-img" alt="..." />
+                <div className="card-body">
+                  <h5 className="card-title">{evt.title}</h5>
+                  <p className="card-text">{evt.date}</p>
+                  <p className="card-text">{evt.address}</p>
+                </div>
+                <div className="card-footer">
+                  <small className="text-muted">{evt.organizedBy}</small>
+                </div>
               </div>
-              <div className="card-footer">
-                <small className="text-muted">{ev.organizedBy}</small>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      {/* {EVENTS.map((e) => (
-        <div className="card-group">
-          <EventItem
-            key={e.id}
-            id={e.id}
-            image={e.image}
-            title={e.title}
-            date={e.date}
-            address={e.address}
-          />
-        </div>
-      ))} */}
-    </div>
+            ))}
+          </div>
+        </Carousel.Item>
+      ))}
+    </Carousel>
   );
 };
 

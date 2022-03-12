@@ -15,12 +15,12 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
 
-import Formss from "./forms/Forms";
+import Forms from "./forms/Forms";
 import Events from "./events/EventList";
-import "materialize-css/dist/css/materialize.min.css";
 import Clubs from "./Clubs/Clubs";
 // import Group from "./groups/pages/Group";
 // import Dashboard from "./dashboard/pages/Dashboard";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   const { token, login, logout, userId } = useAuth();
@@ -58,7 +58,7 @@ const App = () => {
           <UpdatePlace />
         </Route>
         <Route path="/forms">
-          <Formss />
+          <Forms />
         </Route>
         <Route path="/a1/account"></Route>
         <Redirect to="/" />
@@ -97,6 +97,7 @@ const App = () => {
     >
       <Router>
         <MainNavigation />
+
         <main>{routes}</main>
       </Router>
     </AuthContext.Provider>

@@ -1,10 +1,19 @@
-import React, { useEffect, useState } from "react";
-import "./forms.css";
+import React, { useState } from "react";
+import {
+  Button,
+  Collapse,
+  Card,
+  Form,
+  DropdownButton,
+  Dropdown,
+} from "react-bootstrap";
 
-var list = [
+// import "./Forms.css";
+
+const FORMS_LIST = [
   {
     id: "1",
-    title: "Apply for Organization",
+    title: "Apply for organization",
     expiredAt: "0000-00-00",
     link: "",
   },
@@ -13,52 +22,65 @@ var list = [
   { id: "4", title: "Be a speaker", expiredAt: "0000-00-00", link: "" },
 ];
 
-export default function Forms() {
-  const [formList, setFormList] = useState(list);
-
-  // app.get("/forms", (req, res) => {
-  //   //ask database to give list of forms
-  //   // Form.find()
-  //   // list
-
-  //   res.json(list)
-  // })
-
-  // var fetchForms = async() => {
-  //   const res = await axios.get("http://localhost:5000/forms")
-
-  //   setFormList(list)
-  // }
-
-  // useEffect(() => {
-  //   fetchForms();
-  // }, [])
+function FormComp() {
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="center-align">
-      {formList.map((item, index) => {
-        return (
-          <div
-            className="card"
-            style={{ marginLeft: "20%", marginRight: "20%" }}
-          >
-            <div style={{ textAlign: "left" }}>
-              <h3>{item.title}</h3>
-              <div>{item.expiredAt}</div>
-            </div>
-            <div style={{ textAlign: "right" }}>
-              <button
-                className="btn waves-effect waves-light"
-                onClick={() => {
-                  console.log("doone");
-                }}
+    <div>
+      {FORMS_LIST.map((f) => (
+        <Card style={{ margin: "2%" }} key={f.id}>
+          <Card.Body>
+            <h2>{f.title}</h2>
+            <div>
+              <Button
+                onClick={() => setOpen(!open)}
+                aria-controls="example-collapse-text"
+                aria-expanded={open}
               >
-                Fill Form<i className="material-icons right">send</i>
-              </button>
+                Apply
+              </Button>
+              <Collapse in={open}>
+                <Form style={{ margin: "1%" }}>
+                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <DropdownButton
+                      id="dropdown-basic-button"
+                      title="Select Club"
+                    >
+                      <Dropdown.Item href="#/action-1">
+                        Chess Club
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-2">
+                        Accounting Association
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-3">
+                        UTA Coders Society
+                      </Dropdown.Item>
+                    </DropdownButton>
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Text className="text-muted">
+                      We'll never share your email with anyone else.
+                    </Form.Text>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password" />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Check type="checkbox" label="Check me out" />
+                  </Form.Group>
+                  <Button variant="primary" type="submit">
+                    Submit
+                  </Button>
+                </Form>
+              </Collapse>
             </div>
-          </div>
-        );
-      })}
+          </Card.Body>
+        </Card>
+      ))}
     </div>
   );
 }
+
+export default FormComp;
