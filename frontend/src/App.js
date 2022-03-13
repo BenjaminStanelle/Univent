@@ -18,6 +18,7 @@ import { useAuth } from "./shared/hooks/auth-hook";
 import Forms from "./forms/Forms";
 import Events from "./events/EventList";
 import Clubs from "./Clubs/Clubs";
+import Profile from "./Profile/Profile";
 // import Group from "./groups/pages/Group";
 // import Dashboard from "./dashboard/pages/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -44,19 +45,21 @@ const App = () => {
           <Clubs />
         </Route>
 
-        <Route path="/:userId/places" exact></Route>
-        <Route path="/groups/:groupUserId/" exact></Route>
+        {/* <Route path="/:userId/places" exact></Route>
+        <Route path="/groups/:groupUserId/" exact></Route> */}
         <Route path="/events">
           <Events />
         </Route>
-        <Route path="/places/new" exact></Route>
+        {/* <Route path="/places/new" exact></Route>
         <Route path="/places/:placeId">
           <UpdatePlace />
-        </Route>
+        </Route> */}
         <Route path="/forms">
           <Forms />
         </Route>
-        <Route path="/a1/account"></Route>
+        <Route path="/a1/account">
+          <Profile />
+        </Route>
         <Redirect to="/" />
       </Switch>
     );
