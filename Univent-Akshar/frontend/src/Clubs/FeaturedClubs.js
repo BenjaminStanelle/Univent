@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CardGroup, Card, Carousel } from "react-bootstrap";
+import { CardGroup, Card } from "react-bootstrap";
 
 const FeaturedClubs = (props) => {
   return (
