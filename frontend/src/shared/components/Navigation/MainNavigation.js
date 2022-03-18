@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-import MainHeader from './MainHeader';
-import NavLinks from './NavLinks';
-import SideDrawer from './SideDrawer';
-import Backdrop from '../UIElements/Backdrop';
-import './MainNavigation.css';
+import MainHeader from "./MainHeader";
+import NavLinks from "./NavLinks";
+import SideDrawer from "./SideDrawer";
+import Backdrop from "../UIElements/Backdrop";
+import "./MainNavigation.css";
 
-const MainNavigation = props => {
+const MainNavigation = (props) => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
   const openDrawerHandler = () => {
@@ -17,7 +17,7 @@ const MainNavigation = props => {
   const closeDrawerHandler = () => {
     setDrawerIsOpen(false);
   };
-//main-navigation__header-nav removes links from nav bar when screen is small
+  //main-navigation__header-nav removes links from nav bar when screen is small
   //<React.Fragment> because you can only turn one root component
   return (
     <React.Fragment>
@@ -38,7 +38,7 @@ const MainNavigation = props => {
           <span />
         </button>
         <h1 className="main-navigation__title">
-          <Link to="/">YourPlaces</Link>
+          <Link to="/">UNIVENT</Link>
         </h1>
         <nav className="main-navigation__header-nav">
           <NavLinks />

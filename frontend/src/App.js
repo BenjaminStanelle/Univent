@@ -1,25 +1,33 @@
-import React from 'react';
+import React from "react";
 import {
   BrowserRouter as Router,
   Route,
   Redirect,
-  Switch
-} from 'react-router-dom';
+  Switch,
+} from "react-router-dom";
 
-import Users from './user/pages/Users';
-import NewPlace from './places/pages/NewPlace';
-import UserPlaces from './places/pages/UserPlaces';
-import UpdatePlace from './places/pages/UpdatePlace';
-import Auth from './user/pages/Auth';
-import MainNavigation from './shared/components/Navigation/MainNavigation';
-import { AuthContext } from './shared/context/auth-context';
-import { useAuth } from './shared/hooks/auth-hook';
+import Dashboard from "./user/pages/Dashboard";
+import NewPlace from "./places/pages/NewPlace";
+import UserPlaces from "./places/pages/UserPlaces";
+import UpdatePlace from "./places/pages/UpdatePlace";
+import Auth from "./user/pages/Auth";
+import MainNavigation from "./shared/components/Navigation/MainNavigation";
+import { AuthContext } from "./shared/context/auth-context";
+import { useAuth } from "./shared/hooks/auth-hook";
+
+import Forms from "./forms/Forms";
+import Events from "./events/EventList";
+import Clubs from "./Clubs/Clubs";
+import Profile from "./Profile/Profile";
+// import Group from "./groups/pages/Group";
+// import Dashboard from "./dashboard/pages/Dashboard";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   const { token, login, logout, userId } = useAuth();
 
   let routes;
- /*<Route path="/"> given a specific path in the url, components or pages between closing braces of 
+  /*<Route path="/"> given a specific path in the url, components or pages between closing braces of 
   route will be rendered when that url starts with that specific path name
   Add exact key word <Route path="/" exact> for only that exact url to render components in that route
    
@@ -31,39 +39,37 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <Users />
+          <Dashboard />
         </Route>
-        <Route path="/:userId/places" exact>
-          <UserPlaces />
+        <Route path="/clubs" exact>
+          <Clubs />
         </Route>
-        <Route path="/groups/:groupUserId/" exact>
-        
-        </Route>
+
+        {/* <Route path="/:userId/places" exact></Route>
+        <Route path="/groups/:groupUserId/" exact></Route> */}
         <Route path="/events">
-          
+          <Events />
         </Route>
-        <Route path="/places/new" exact>
-          <NewPlace />
-        </Route>
+        {/* <Route path="/places/new" exact></Route>
         <Route path="/places/:placeId">
           <UpdatePlace />
-        </Route>
+        </Route> */}
         <Route path="/forms">
-          
+          <Forms />
         </Route>
         <Route path="/a1/account">
-          
+          <Profile />
         </Route>
         <Redirect to="/" />
       </Switch>
     );
-     //when user not logged in they are only able to see few pages
+    //when user not logged in they are only able to see few pages
     // <Route path="/:userId/places" exact> the : means it is dynamic and you don't know the exact value yet.
   } else {
     routes = (
       <Switch>
         <Route path="/" exact>
-          <Users />
+          <Dashboard />
         </Route>
         <Route path="/:userId/places" exact>
           <UserPlaces />
@@ -85,11 +91,12 @@ const App = () => {
         token: token,
         userId: userId,
         login: login,
-        logout: logout
+        logout: logout,
       }}
     >
       <Router>
         <MainNavigation />
+
         <main>{routes}</main>
       </Router>
     </AuthContext.Provider>
