@@ -116,6 +116,10 @@ const updateClub = async (req, res, next) => {
 }
 
 const deleteClub = async (req, res, next) => {
+    /**
+     * deletes a club and all references to club in users
+     * TODO: delete references to events, and events belonging to club as well when events are created
+     */
     const clubname = req.params.cn;
     let club;
     try{
@@ -146,3 +150,5 @@ exports.getClubByName = getClubByName;
 exports.getClubsByUserId = getClubsByUserId;
 exports.updateClub = updateClub;
 exports.deleteClub = deleteClub;
+
+//623796954a08ae5b05935a33
