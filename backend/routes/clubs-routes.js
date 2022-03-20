@@ -14,6 +14,8 @@ router.post(
     clubsControllers.createClub
     );
 
+router.get('/users', clubsControllers.getClubsByUserId);
+
 router.get('/:cn', clubsControllers.getClubByName);
 
 module.exports = router;

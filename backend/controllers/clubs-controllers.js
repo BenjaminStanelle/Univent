@@ -1,15 +1,19 @@
 
 const { validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 const HttpError = require('../models/http-error');
 const Club = require('../models/club');
 const User = require('../models/user');
-const mongoose = require('mongoose');
 
 const getClubByName = async (req, res, next) => {
+    /**
+     * takes a club name from the URL and returns the database entry for that club
+     */
     const clubname = req.params.cn;
     let clubs;
 
+    // find the club by clubname
     try{
         clubs = await Club.find({clubname: clubname}).exec();
     } catch(err){
@@ -23,7 +27,39 @@ const getClubByName = async (req, res, next) => {
     res.json({ clubs: clubs.map(club => club.toObject({getters: true})) });
 }
 
+const getClubsByUserId = async (req, res, next) => {
+    /*
+    * controller method to retrieve all of the clubs belonging to a specific user
+    * the user id must be passed in the request body of the user we're interested in. 
+    * it is of type mongoose ObjectId
+    */
+    const userId = req.body.userId;
+
+    console.log("USER ID: " + userId);
+
+    let userWithClubs;
+    try{
+        userWithClubs = await User.findById(userId).populate('clubs');
+    } catch (err){
+        console.log(err);
+        return next(new HttpError('something went wrong, please try again later.', 500));
+    }
+
+    console.log(userWithClubs);
+
+    if(!userWithClubs || userWithClubs.clubs.length === 0){
+        console.log(userWithClubs);
+        return next( new HttpError('Could not find Clubs for provided user id.', 404));
+    }
+    console.log(userWithClubs.clubs);
+    res.json({ clubs: userWithClubs.clubs.map(club => club.toObject({ getters: true }))});
+    //res.json({clubs: 'this is working EEEEEEEEEEEEEEE'});
+}
+
 const createClub = async (req, res, next) => {
+    /**
+     * takes a http request containing a json object of the new club and adds it to the database
+     */
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         console.log(errors);
@@ -56,3 +92,4 @@ const createClub = async (req, res, next) => {
 
 exports.createClub = createClub;
 exports.getClubByName = getClubByName;
+exports.getClubsByUserId = getClubsByUserId;

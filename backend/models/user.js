@@ -10,7 +10,7 @@ const userSchema = new Schema({
   password: { type: String, required: true, minlength: 6 },
   image: { type: String, required: false },
   access: { type: String, required: true },
-  clubs: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Clubs' }]
+  clubs: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Club' }]
 });
 
 userSchema.plugin(uniqueValidator);
