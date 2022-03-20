@@ -90,6 +90,59 @@ const createClub = async (req, res, next) => {
     res.status(201).json({ message: "created club!"});
 }
 
+const updateClub = async (req, res, next) => {
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return( new HttpError('invalid inputs pased, please check your data.', 422));
+    }
+    const clubname = req.params.cn;
+    let club;
+    try{
+        club = await Club.findOne({clubname: clubname});
+    } catch(err){
+        return next(new HttpError('something went wrong', 500));
+    }
+    for(const [key, value] of Object.entries(req.body)){
+        club[key] = value;
+    }
+    try{
+        await club.save();
+    } catch (err) {
+        console.log(err);
+        return next( new HttpError('editing club failed', 500));
+    }
+    res.status(201).json({message: 'update success'});
+
+}
+
+const deleteClub = async (req, res, next) => {
+    const clubname = req.params.cn;
+    let club;
+    try{
+        club = await Club.findOne({clubname: clubname}).populate('users');
+    } catch(err){
+        return next(new HttpError('something went wrong', 500));
+    }
+    if(!club){
+        return next( new HttpError('Could not find place for this id', 404) );
+    }
+    try{
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        club.users.forEach(async (user) => {
+            user.clubs.pull(club);
+            await user.save({session: sess});
+        });
+        await club.remove();
+        await sess.commitTransaction();
+    }catch(err){
+        return next (new HttpError('Something went wrong deleting club', 500));
+    }
+    res.status(200).json({ message: 'deleted club'});
+}
+
 exports.createClub = createClub;
 exports.getClubByName = getClubByName;
 exports.getClubsByUserId = getClubsByUserId;
+exports.updateClub = updateClub;
+exports.deleteClub = deleteClub;
