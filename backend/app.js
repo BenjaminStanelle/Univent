@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const placesRoutes = require('./routes/places-routes');
-const usersRoutes = require('./routes/users-routes');
+const groupsRoutes = require('./routes/groups-routes');
 const HttpError = require('./models/http-error');
 
 const app = express();
@@ -49,7 +49,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    `mongodb+srv://ben:123@cluster0.n70jv.mongodb.net/UniventDB?retryWrites=true&w=majority`
+    `mongodb+srv://evan:123@cluster0.n70jv.mongodb.net/UniventDB?retryWrites=true&w=majority`
   )
   .then(() => {
     app.listen(5000);

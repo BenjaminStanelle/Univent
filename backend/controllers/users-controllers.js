@@ -22,12 +22,14 @@ const getUsers = async (req, res, next) => {
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log(errors);
     return next(
       new HttpError('Invalid inputs passed, please check your data.', 422)
     );
   }
 
-  const { name, email, password } = req.body;
+  const { name, studentID, email, password } = req.body;
+  const access = req.params.aid;
 
   let existingUser;
   try {
@@ -62,14 +64,20 @@ const signup = async (req, res, next) => {
   const createdUser = new User({
     name,
     email,
-    image: req.file.path,
     password: hashedPassword,
-    places: []
+    studentID,
+    access,
+    clubs: []
   });
+
+
+
+  console.log(createdUser);
 
   try {
     await createdUser.save();
   } catch (err) {
+    console.log(err);
     const error = new HttpError(
       'Signing up failed, please try again later.',
       500
@@ -157,7 +165,8 @@ const login = async (req, res, next) => {
   res.json({
     userId: existingUser.id,
     email: existingUser.email,
-    token: token
+    token: token, 
+    access: existingUser.access
   });
 };
 
