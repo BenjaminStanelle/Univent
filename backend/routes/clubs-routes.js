@@ -5,26 +5,15 @@ const clubsControllers = require('../controllers/clubs-controllers');
 
 const router = express.Router();
 
-router.get('/:gid', clubsControllers.getClubById);
-router.get('/user/:uid', clubsControllers.getClubByUserId);
-
 router.post(
     '/',
     [
-        check('title')
-        .not()
-        .isEmpty(),
-        check('description').isLength({min: 5}),
-        check('address').not().isEmpty()
+        check('clubname').not().isEmpty(),
+        check('description').isLength({ min: 5 })
     ],
-    groupsControllers.createGroup
-);
+    clubsControllers.createClub
+    );
 
-router.patch('/gid', [
-    check('title').not().isEmpty(),
-    check('description').isLength({min: 5})
-], groupsControllers.updateGroup);
-
-router.delete('/:gid', groupsControllers.deletePlace);
+router.get('/:cn', clubsControllers.getClubByName);
 
 module.exports = router;

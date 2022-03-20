@@ -23,6 +23,7 @@ router.post(
   usersController.signup
 );
 
+router.post('/join/:cn', usersController.joinGroup);
 router.post('/login', usersController.login);
 
 module.exports = router;

@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
+const Club = require('../models/club');
+const mongoose = require('mongoose');
 
 const getUsers = async (req, res, next) => {
   let users;
@@ -105,6 +107,52 @@ const signup = async (req, res, next) => {
     .json({ userId: createdUser.id, email: createdUser.email, token: token });
 };
 
+const joinGroup = async (req, res, next) => {
+  const clubname = req.params.cn;
+  let club;
+  let user;
+  let userId = req.body.userId;
+
+  // get user information from database
+  try {
+    user = await User.findById(userId);
+  } catch (err) {
+    return next( new HttpError('finding user failed, please try again later', 500));
+  }
+
+  if(!user){
+    return next( new HttpError('could not find user for provided id', 404) );
+  }
+
+  // get club information from database
+  try {
+    club = await Club.findOne({clubname: clubname});
+  } catch (err){
+    return next( new HttpError('finding club failed, please try again later', 500));
+  }
+
+  if(!club){
+    return next( new HttpError('could not find club with specified clubname', 404));
+  }
+  console.log(club);
+  console.log(user);
+
+  // use transaction, get user in club's user list and club in user's clubs list
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    user.clubs.push(club);
+    club.users.push(user);
+    await user.save({session: sess});
+    await club.save({session: sess});
+    await sess.commitTransaction();
+  }catch(err){
+    console.log(err);
+    return next( new HttpError('joining club failed please try again later', 500));
+  }
+  res.status(201).json({message: "Joined club!"});
+}
+
 const login = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -173,3 +221,4 @@ const login = async (req, res, next) => {
 exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;
+exports.joinGroup = joinGroup;
