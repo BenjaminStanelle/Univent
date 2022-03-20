@@ -7,6 +7,7 @@ const User = require('../models/user');
 const Club = require('../models/club');
 const mongoose = require('mongoose');
 
+//getting the users from the database
 const getUsers = async (req, res, next) => {
   let users;
   try {
@@ -17,7 +18,7 @@ const getUsers = async (req, res, next) => {
       500
     );
     return next(error);
-  }
+  }  //return default javascript object, setting gettings to true to remove underscore
   res.json({ users: users.map(user => user.toObject({ getters: true })) });
 };
 
@@ -33,6 +34,7 @@ const signup = async (req, res, next) => {
   const { name, studentID, email, password } = req.body;
   const access = req.params.aid;
 
+  //checking if user email already exists before signing up
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
@@ -52,6 +54,7 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
+  //hashing the password to hide it in database
   let hashedPassword;
   try {
     hashedPassword = await bcrypt.hash(password, 12);
@@ -62,7 +65,7 @@ const signup = async (req, res, next) => {
     );
     return next(error);
   }
-
+  //creating new user based off schema
   const createdUser = new User({
     name,
     email,
@@ -157,7 +160,7 @@ const login = async (req, res, next) => {
   const { email, password } = req.body;
 
   let existingUser;
-
+  //existing user for login
   try {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
@@ -168,6 +171,7 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
+  //if existing user is not stored in the database
   if (!existingUser) {
     const error = new HttpError(
       'Invalid credentials, could not log you in.',

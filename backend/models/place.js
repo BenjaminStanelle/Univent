@@ -11,6 +11,8 @@ const placeSchema = new Schema({
     lat: { type: Number, required: true },
     lng: { type: Number, required: true }
   },
+  //mongoose.Types.ObjectId to create real mongodb ID
+  //ref property to show its place's relation to user.
   creator: { type: mongoose.Types.ObjectId, required: true, ref: 'User' }
 });
 
