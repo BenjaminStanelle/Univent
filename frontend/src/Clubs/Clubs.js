@@ -123,9 +123,22 @@ const Clubs = () => {
         console.error("err -> ", error);
       });
   };
+
+  const getSearchedClub = () => {
+    fetch("http://localhost:5000/api/clubs/chess_club")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log("parsed - ", data);
+      })
+      .catch((error) => {
+        console.error("err -> ", error);
+      });
+  };
   useEffect(() => {
     getData();
-    // GetDateAsync();
+    getSearchedClub();
   }, []);
 
   return (
