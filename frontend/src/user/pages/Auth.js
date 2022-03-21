@@ -68,7 +68,7 @@ const Auth = () => {
   const authSubmitHandler = async event => {
     event.preventDefault();
 
-    if (isLoginMode) {
+    if (isLoginMode) {  //if login mode
       try {
         const responseData = await sendRequest(
           'http://localhost:5000/api/users/login',
@@ -83,7 +83,7 @@ const Auth = () => {
         );
         auth.login(responseData.userId, responseData.token);
       } catch (err) {}
-    } else {
+    } else {  //if signup mode
       try {
         const formData = new FormData();
         formData.append('email', formState.inputs.email.value);
