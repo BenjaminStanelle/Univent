@@ -71,6 +71,7 @@ const signup = async (req, res, next) => {
     email,
     password: hashedPassword,
     studentID,
+    image: 'someimage.com',
     access,
     clubs: []
   });

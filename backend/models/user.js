@@ -11,7 +11,7 @@ const userSchema = new Schema({
   access: { type: String, required: true },
   image: { type: String, required: true },
   //places is in an array because one user can have multiple places
-  places: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Place' }]
+  clubs: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Place' }]
 });
 
 userSchema.plugin(uniqueValidator);
