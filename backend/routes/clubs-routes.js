@@ -13,7 +13,8 @@ router.post(
     ],
     clubsControllers.createClub
     );
-
+    
+router.get('/allclubs', clubsControllers.getAllClubs);
 router.get('/users', clubsControllers.getClubsByUserId);
 router.get('/:cn', clubsControllers.getClubByName);
 router.patch('/:cn', clubsControllers.updateClub);

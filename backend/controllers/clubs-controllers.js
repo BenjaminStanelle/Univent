@@ -6,6 +6,18 @@ const HttpError = require('../models/http-error');
 const Club = require('../models/club');
 const User = require('../models/user');
 
+const getAllClubs = async (req, res, next) => { 
+    let clubs; 
+    try{ 
+        clubs = await Club.find({}); 
+        } catch(err){ 
+            return next(new HttpError('something went wrong', 500));
+                    } 
+        if(!clubs){ return next(new HttpError('can\'t find any clubs.', 404)); 
+    } 
+res.json({ clubs: clubs.map(club => club.toObject({getters: true})) }); 
+}
+
 const getClubByName = async (req, res, next) => {
     /**
      * takes a club name from the URL and returns the database entry for that club
@@ -141,6 +153,7 @@ const deleteClub = async (req, res, next) => {
     res.status(200).json({ message: 'deleted club'});
 }
 
+exports.getAllClubs= getAllClubs;
 exports.createClub = createClub;
 exports.getClubByName = getClubByName;
 exports.getClubsByUserId = getClubsByUserId;
