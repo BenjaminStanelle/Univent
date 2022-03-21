@@ -7,7 +7,6 @@ const fileUpload = require('../middleware/file-upload');
 const router = express.Router();
 
 router.get('/', usersController.getUsers);
-
 router.post(
   '/signup/:aid',
   fileUpload.single('image'),
@@ -22,8 +21,8 @@ router.post(
   ],
   usersController.signup
 );
-
-router.post('/join/:cn', usersController.joinGroup);
+router.post('/join/:cn', usersController.joinClub);
 router.post('/login', usersController.login);
+router.patch('/leave/:cn', usersController.leaveClub);
 
 module.exports = router;
