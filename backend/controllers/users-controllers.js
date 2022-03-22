@@ -7,6 +7,34 @@ const User = require("../models/user");
 const Club = require("../models/club");
 const mongoose = require("mongoose");
 
+const getUserByID = async (req, res, next) => {
+  const userId = req.params.aid;
+
+  let existingUser;
+  //findOne({id: userId})
+  //existing user for login
+  try {
+    existingUser = await User.findOne({ _id: userId });
+  } catch (err) {
+    const error = new HttpError(
+      "Finding user failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  //if existing user is not stored in the database
+  if (!existingUser) {
+    const error = new HttpError(
+      "Invalid credentials, this user does not exist in database.",
+      403
+    );
+    return next(error);
+  }
+
+  res.json({ existingUser: existingUser.toObject({ getters: true }) });
+};
+
 //getting the users from the database
 const getUsers = async (req, res, next) => {
   let users;
@@ -276,6 +304,7 @@ const leaveClub = async (req, res, next) => {
   res.status(201).json({ message: "Left club!" });
 };
 
+exports.getUserByID = getUserByID;
 exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;

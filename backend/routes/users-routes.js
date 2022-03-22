@@ -17,6 +17,8 @@ router.post(
   ],
   usersController.signup
 );
+
+router.get("/account/:aid", usersController.getUserByID);
 router.post("/join/:cn", usersController.joinClub);
 router.post("/login", usersController.login);
 router.patch("/leave/:cn", usersController.leaveClub);

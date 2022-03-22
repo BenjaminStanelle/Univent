@@ -57,7 +57,7 @@ const App = () => {
         <Route path="/forms">
           <Forms />
         </Route>
-        <Route path="/a1/account">
+        <Route path="/account/:userId">
           <Profile />
         </Route>
         <Redirect to="/" />
