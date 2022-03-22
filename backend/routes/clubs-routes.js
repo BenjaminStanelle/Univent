@@ -13,12 +13,8 @@ router.post(
     ],
     clubsControllers.createClub
     );
-<<<<<<< HEAD
-
-=======
     
 router.get('/allclubs', clubsControllers.getAllClubs);
->>>>>>> Benjamins
 router.get('/users', clubsControllers.getClubsByUserId);
 router.get('/:cn', clubsControllers.getClubByName);
 router.patch('/:cn', clubsControllers.updateClub);
