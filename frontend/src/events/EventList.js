@@ -87,17 +87,17 @@ const EventList = (props) => {
                 style={{ margin: "1rem" }}
               >
                 <Form.Check type="radio" id="weekend" label="Weekend" />
-                <Form.Check type="checkbox" id="tomorrow" label="Tomorrow" />
+                <Form.Check type="radio" id="tomorrow" label="Tomorrow" />
               </div>
             </InputGroup>
           </Col>
           <Col md={9}>
             <Carousel>
               {EVENTS.map((ev) => (
-                <Carousel.Item interval={2500}>
+                <Carousel.Item key={ev.id} interval={2500}>
                   <CardGroup>
                     {EVENTS.map((evt) => (
-                      <Card style={{ margin: "1%" }}>
+                      <Card key={evt.id} style={{ margin: "1%" }}>
                         <Card.Img
                           variant="top"
                           src={evt.image}

@@ -1,12 +1,12 @@
 import React from "react";
 
-import { CardGroup, Card, Carousel } from "react-bootstrap";
+import { CardGroup, Card } from "react-bootstrap";
 
 const FeaturedClubs = (props) => {
   return (
     <CardGroup>
       {props.FEATURED_CLUBS.map((c) => (
-        <Card style={{ margin: "2%" }}>
+        <Card key={c.id} style={{ margin: "2%" }}>
           <Card.Img
             variant="top"
             src={c.image}

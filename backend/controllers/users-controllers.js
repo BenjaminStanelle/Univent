@@ -1,25 +1,66 @@
-const { validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const { validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
+<<<<<<< HEAD
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
 const Club = require('../models/club');
 const mongoose = require('mongoose');
 
+=======
+const HttpError = require("../models/http-error");
+const User = require("../models/user");
+const Club = require("../models/club");
+const mongoose = require("mongoose");
+
+const getUserByID = async (req, res, next) => {
+  const userId= req.params.aid;
+
+  let existingUser;
+  //findOne({id: userId})
+  //existing user for login
+  try {
+    existingUser = await User.findOne({_id: userId});
+  } catch (err) {
+    const error = new HttpError(
+      'Finding user failed, please try again later.',
+      500
+    );
+    return next(error);
+  }
+
+  //if existing user is not stored in the database
+  if (!existingUser) {
+    const error = new HttpError(
+      'Invalid credentials, this user does not exist in database.',
+      403
+    );
+    return next(error);
+  }
+
+  res.json({ existingUser: existingUser.toObject({ getters: true }) });
+};
+
+>>>>>>> Benjamins
 //getting the users from the database
 const getUsers = async (req, res, next) => {
   let users;
   try {
-    users = await User.find({}, '-password');
+    users = await User.find({}, "-password");
   } catch (err) {
     const error = new HttpError(
-      'Fetching users failed, please try again later.',
+      "Fetching users failed, please try again later.",
       500
     );
     return next(error);
+<<<<<<< HEAD
   }  //return default javascript object, setting gettings to true to remove underscore
   res.json({ users: users.map(user => user.toObject({ getters: true })) });
+=======
+  } //return default javascript object, setting gettings to true to remove underscore
+  res.json({ users: users.map((user) => user.toObject({ getters: true })) });
+>>>>>>> Benjamins
 };
 
 const signup = async (req, res, next) => {
@@ -27,7 +68,7 @@ const signup = async (req, res, next) => {
   if (!errors.isEmpty()) {
     console.log(errors);
     return next(
-      new HttpError('Invalid inputs passed, please check your data.', 422)
+      new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
 
@@ -40,7 +81,7 @@ const signup = async (req, res, next) => {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
     const error = new HttpError(
-      'Signing up failed, please try again later.',
+      "Signing up failed, please try again later.",
       500
     );
     return next(error);
@@ -48,7 +89,7 @@ const signup = async (req, res, next) => {
 
   if (existingUser) {
     const error = new HttpError(
-      'User exists already, please login instead.',
+      "User exists already, please login instead.",
       422
     );
     return next(error);
@@ -60,7 +101,7 @@ const signup = async (req, res, next) => {
     hashedPassword = await bcrypt.hash(password, 12);
   } catch (err) {
     const error = new HttpError(
-      'Could not create user, please try again.',
+      "Could not create user, please try again.",
       500
     );
     return next(error);
@@ -71,6 +112,7 @@ const signup = async (req, res, next) => {
     email,
     password: hashedPassword,
     studentID,
+<<<<<<< HEAD
     image: 'someimage.com',
     access,
     clubs: []
@@ -78,6 +120,13 @@ const signup = async (req, res, next) => {
 
 
 
+=======
+    image: "someimage.com",
+    access,
+    clubs: [],
+  });
+
+>>>>>>> Benjamins
   console.log(createdUser);
 
   try {
@@ -85,7 +134,7 @@ const signup = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     const error = new HttpError(
-      'Signing up failed, please try again later.',
+      "Signing up failed, please try again later.",
       500
     );
     return next(error);
@@ -95,12 +144,12 @@ const signup = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: createdUser.id, email: createdUser.email },
-      'supersecret_dont_share',
-      { expiresIn: '1h' }
+      "supersecret_dont_share",
+      { expiresIn: "1h" }
     );
   } catch (err) {
     const error = new HttpError(
-      'Signing up failed, please try again later.',
+      "Signing up failed, please try again later.",
       500
     );
     return next(error);
@@ -125,15 +174,26 @@ const joinClub = async (req, res, next) => {
   try {
     user = await User.findById(userId);
   } catch (err) {
+<<<<<<< HEAD
     return next( new HttpError('finding user failed, please try again later', 500));
   }
 
   if(!user){
     return next( new HttpError('could not find user for provided id', 404) );
+=======
+    return next(
+      new HttpError("finding user failed, please try again later", 500)
+    );
+  }
+
+  if (!user) {
+    return next(new HttpError("could not find user for provided id", 404));
+>>>>>>> Benjamins
   }
 
   // get club information from database
   try {
+<<<<<<< HEAD
     club = await Club.findOne({clubname: clubname});
   } catch (err){
     return next( new HttpError('finding club failed, please try again later', 500));
@@ -141,6 +201,19 @@ const joinClub = async (req, res, next) => {
 
   if(!club){
     return next( new HttpError('could not find club with specified clubname', 404));
+=======
+    club = await Club.findOne({ clubname: clubname });
+  } catch (err) {
+    return next(
+      new HttpError("finding club failed, please try again later", 500)
+    );
+  }
+
+  if (!club) {
+    return next(
+      new HttpError("could not find club with specified clubname", 404)
+    );
+>>>>>>> Benjamins
   }
 
   // use transaction, get user in club's user list and club in user's clubs list
@@ -149,6 +222,7 @@ const joinClub = async (req, res, next) => {
     sess.startTransaction();
     user.clubs.push(club);
     club.users.push(user);
+<<<<<<< HEAD
     await user.save({session: sess});
     await club.save({session: sess});
     await sess.commitTransaction();
@@ -158,6 +232,19 @@ const joinClub = async (req, res, next) => {
   }
   res.status(201).json({message: "Joined club!"});
 }
+=======
+    await user.save({ session: sess });
+    await club.save({ session: sess });
+    await sess.commitTransaction();
+  } catch (err) {
+    console.log(err);
+    return next(
+      new HttpError("joining club failed please try again later", 500)
+    );
+  }
+  res.status(201).json({ message: "Joined club!" });
+};
+>>>>>>> Benjamins
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -168,7 +255,7 @@ const login = async (req, res, next) => {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
     const error = new HttpError(
-      'Logging in failed, please try again later.',
+      "Logging in failed, please try again later.",
       500
     );
     return next(error);
@@ -177,7 +264,7 @@ const login = async (req, res, next) => {
   //if existing user is not stored in the database
   if (!existingUser) {
     const error = new HttpError(
-      'Invalid credentials, could not log you in.',
+      "Invalid credentials, could not log you in.",
       403
     );
     return next(error);
@@ -188,7 +275,7 @@ const login = async (req, res, next) => {
     isValidPassword = await bcrypt.compare(password, existingUser.password);
   } catch (err) {
     const error = new HttpError(
-      'Could not log you in, please check your credentials and try again.',
+      "Could not log you in, please check your credentials and try again.",
       500
     );
     return next(error);
@@ -196,7 +283,7 @@ const login = async (req, res, next) => {
 
   if (!isValidPassword) {
     const error = new HttpError(
-      'Invalid credentials, could not log you in.',
+      "Invalid credentials, could not log you in.",
       403
     );
     return next(error);
@@ -206,12 +293,12 @@ const login = async (req, res, next) => {
   try {
     token = jwt.sign(
       { userId: existingUser.id, email: existingUser.email },
-      'supersecret_dont_share',
-      { expiresIn: '1h' }
+      "supersecret_dont_share",
+      { expiresIn: "1h" }
     );
   } catch (err) {
     const error = new HttpError(
-      'Logging in failed, please try again later.',
+      "Logging in failed, please try again later.",
       500
     );
     return next(error);
@@ -220,8 +307,13 @@ const login = async (req, res, next) => {
   res.json({
     userId: existingUser.id,
     email: existingUser.email,
+<<<<<<< HEAD
     token: token, 
     access: existingUser.access
+=======
+    token: token,
+    access: existingUser.access,
+>>>>>>> Benjamins
   });
 };
 
@@ -234,6 +326,7 @@ const leaveClub = async (req, res, next) => {
   try {
     user = await User.findById(userId);
   } catch (err) {
+<<<<<<< HEAD
     return next( new HttpError('finding user failed, please try again later', 500));
   }
   
@@ -250,10 +343,33 @@ const leaveClub = async (req, res, next) => {
   
   // start transaction that removes both club and user from eachothers reference
   try{
+=======
+    return next(
+      new HttpError("finding user failed, please try again later", 500)
+    );
+  }
+
+  if (!user) {
+    return next(new HttpError("could not find user for provided id", 404));
+  }
+
+  // get club information from database
+  try {
+    club = await Club.findOne({ clubname: clubname });
+  } catch (err) {
+    return next(
+      new HttpError("finding club failed, please try again later", 500)
+    );
+  }
+
+  // start transaction that removes both club and user from eachothers reference
+  try {
+>>>>>>> Benjamins
     const sess = await mongoose.startSession();
     sess.startTransaction();
     user.clubs.pull(club);
     club.users.pull(user);
+<<<<<<< HEAD
     await user.save({session: sess});
     await club.save({session: sess});
     await sess.commitTransaction();
@@ -264,6 +380,21 @@ const leaveClub = async (req, res, next) => {
   res.status(201).json({message: "Left club!"});
 }
 
+=======
+    await user.save({ session: sess });
+    await club.save({ session: sess });
+    await sess.commitTransaction();
+  } catch (err) {
+    console.log(err);
+    return next(
+      new HttpError("joining club failed please try again later", 500)
+    );
+  }
+  res.status(201).json({ message: "Left club!" });
+};
+
+exports.getUserByID = getUserByID;
+>>>>>>> Benjamins
 exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;

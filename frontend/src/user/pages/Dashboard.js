@@ -138,12 +138,12 @@ const Dashboard = () => {
 
       <p>{keyword}</p>
       <div className="d-flex justify-content-lg-center">
-        <form class=" d-flex col-6">
+        <form className=" d-flex col-6">
           <input
             onChange={(e) => {
               setkeyword(e.target.value);
             }}
-            class="form-control mr-5"
+            className="form-control mr-5"
             type="search"
             placeholder="Search"
             aria-label="Search"
@@ -156,7 +156,7 @@ const Dashboard = () => {
       <h4 className="featured-text">Check out Featured Clubs</h4>
       <Carousel>
         {CLUBS.map((c) => (
-          <Carousel.Item interval={1000}>
+          <Carousel.Item key={c.id} interval={1000}>
             <FeaturedClubs FEATURED_CLUBS={FEATURED_CLUBS} />
           </Carousel.Item>
         ))}
@@ -164,10 +164,10 @@ const Dashboard = () => {
 
       <Carousel>
         {EVENTS.map((ev) => (
-          <Carousel.Item interval={2500}>
+          <Carousel.Item key={ev.id} interval={2500}>
             <CardGroup>
               {EVENTS.map((evt) => (
-                <Card style={{ margin: "1%" }}>
+                <Card key={evt.id} style={{ margin: "1%" }}>
                   <Card.Img
                     variant="top"
                     src={evt.image}
