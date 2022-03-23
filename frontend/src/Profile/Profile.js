@@ -118,7 +118,7 @@ const Profile = () => {
             </Tab>
             <Tab eventKey="Interests" title="Interests">
               <div>
-                Show selected interests with cards, gove option to cancel as
+                Show selected interests with cards, give option to cancel as
                 well.
               </div>
               <Accordion defaultActiveKey="0">

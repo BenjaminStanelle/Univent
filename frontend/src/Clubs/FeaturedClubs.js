@@ -14,7 +14,7 @@ const FeaturedClubs = (props) => {
           />
           <Card.Body>
             <Card.Title>{c.clubName}</Card.Title>
-            <h5>{c.title}</h5>
+            <h5>{c.clubName}</h5>
             <Card.Text>{c.description}</Card.Text>
           </Card.Body>
           <Card.Footer>
