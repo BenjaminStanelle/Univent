@@ -51,7 +51,7 @@ const ClubsList = (props) => {
               <Row>
                 <Col md={2}>
                   <Card.Img
-                    src={symbol}
+                    src={cb.image}
                     style={{
                       height: "100%",
                       width: "100%",
