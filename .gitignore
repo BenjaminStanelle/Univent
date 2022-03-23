@@ -1,8 +1,5 @@
 *.png
-*package-lock*
-<<<<<<< HEAD
-*/notes
-=======
+*package-lock.json
 */notes
 */node_modules
->>>>>>> Benjamins
+frontend/package-lock*
