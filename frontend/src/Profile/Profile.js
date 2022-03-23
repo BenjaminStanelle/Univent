@@ -15,6 +15,34 @@ import Image from "react-bootstrap/Image";
 import profile_pic from "../images/club_symbol.png";
 
 const Profile = () => {
+var userEmail
+const [loadedUser, setLoadedUser] = useState();
+const [loadedEmail, setLoadedEmail] = useState();
+const [loadedStudentID, setLoadedStudentID] = useState();
+const [loadedImage, setLoadedImage] = useState();
+
+const { isLoading, error, sendRequest, clearError } = useHttpClient();
+const userId = useParams().userId; 
+
+useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      const responseData = await sendRequest(
+        `http://localhost:5000/api/users/account/${userId}`
+      );
+      setLoadedUser(responseData.existingUser.name);
+      setLoadedEmail(responseData.existingUser.email);
+      setLoadedImage(responseData.existingUser.image);
+      //setLoadedStudentID(responseData.existingUser.studentID);
+      
+    } catch (err) {}
+  };
+  fetchUser();
+
+}, [sendRequest, userId]);
+console.log(loadedImage);
+
+
   return (
     <React.Fragment>
       <h1 className="basic-title-styles">My Account</h1>
@@ -32,25 +60,29 @@ const Profile = () => {
                   <Card>
                     <Card.Header>Profile Information</Card.Header>
                     <Card.Body>
-                      <Card.Text>First Name: </Card.Text>
+                      <Card.Text>Full Name: </Card.Text>
                       <FormControl
                         placeholder="Akshar"
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
+                        disabled
                       />
-                      <Card.Text>Last Name: </Card.Text>
+
+                      <Card.Text>Campus Email Address: </Card.Text>
                       <FormControl
                         placeholder="Patel"
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
+                        disabled
                       />
-                      <Card.Text>Campus Email Address: </Card.Text>
+                      <Card.Text>Student ID: </Card.Text>
                       <FormControl
                         placeholder="akshar.patel@mavs.uta.edu"
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
                       />
+
                     </Card.Body>
                   </Card>
                 </Col>
