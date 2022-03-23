@@ -59,7 +59,7 @@ const signup = async (req, res, next) => {
     );
   }
 
-  const { name, studentID, email, password } = req.body;
+  const { name, studentID, email, password, image } = req.body;
   const access = req.params.aid;
 
   //checking if user email already exists before signing up
@@ -99,7 +99,7 @@ const signup = async (req, res, next) => {
     email,
     password: hashedPassword,
     studentID,
-    image: "someimage.com",
+    image:,
     access,
     clubs: [],
   });
