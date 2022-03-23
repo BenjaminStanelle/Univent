@@ -11,20 +11,47 @@ import {
   Container,
 } from "react-bootstrap";
 
+import symbol from "../images/club_symbol.png";
+
 const ClubsList = (props) => {
+  // Example POST method implementation:
+  async function postData() {
+    const createThisClub = {
+      clubname: "PhoneClub",
+      description: "check out fancy shoes here!",
+      symbol:
+        "https://images.musement.com/cover/0003/90/am-pm-experience-cover_header-289357.png?lossless=false&auto=format&fit=crop&h=245&w=355",
+      club_cat: "Recreational/Sports",
+    };
+
+    const response = await fetch("http://localhost:5000/api/clubs/", {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(createThisClub),
+    });
+    return response.json();
+  }
+
   return (
     <Row>
       <Col md={9}>
         {props.CLUBS.map((cb) => (
           <Card key={cb.id} style={{ margin: "1%", height: "10rem" }}>
             <Card.Header style={{ fontWeight: "bold" }}>
-              {cb.clubName}
+              {cb.clubname.replace("_", " ")}
             </Card.Header>
             <Card.Body style={{ margin: "0%" }}>
               <Row>
                 <Col md={2}>
                   <Card.Img
-                    src={cb.symbol}
+                    src={symbol}
                     style={{
                       height: "100%",
                       width: "100%",
@@ -35,7 +62,7 @@ const ClubsList = (props) => {
                 </Col>
                 <Col md={8}>
                   <p style={{ textAlign: "left", paddingTop: "4.5%" }}>
-                    Display club summary here.
+                    {cb.description}
                   </p>
                 </Col>
                 <Col md={2}>
@@ -86,6 +113,13 @@ const ClubsList = (props) => {
                 </Dropdown.Item>
               ))}
             </DropdownButton>
+            <Button
+              type="submit"
+              style={{ height: "60%", width: "25%", margin: "1%" }}
+              onClick={postData}
+            >
+              Create Club
+            </Button>
           </Container>
         </InputGroup>
       </Col>

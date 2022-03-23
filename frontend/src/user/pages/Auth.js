@@ -68,12 +68,8 @@ const Auth = () => {
   const authSubmitHandler = async (event) => {
     event.preventDefault();
 
-<<<<<<< HEAD
-    if (isLoginMode) {  //if login mode
-=======
     if (isLoginMode) {
       //if login mode
->>>>>>> Benjamins
       try {
         const responseData = await sendRequest(
           "http://localhost:5000/api/users/login",
@@ -88,12 +84,8 @@ const Auth = () => {
         );
         auth.login(responseData.userId, responseData.token);
       } catch (err) {}
-<<<<<<< HEAD
-    } else {  //if signup mode
-=======
     } else {
       //if signup mode
->>>>>>> Benjamins
       try {
         const formData = new FormData();
         formData.append("email", formState.inputs.email.value);

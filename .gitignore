@@ -1,5 +1,4 @@
 *.png
-*package-lock.json
+*package-lock*
 */notes
 */node_modules
-frontend/package-lock*

@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import ErrorModal from "../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
+import { useHttpClient } from "../shared/hooks/http-hook";
+import { useParams } from "react-router-dom";
 import {
   Row,
   Col,
@@ -11,37 +15,33 @@ import {
   Accordion,
 } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
-
 import profile_pic from "../images/club_symbol.png";
 
 const Profile = () => {
-var userEmail
-const [loadedUser, setLoadedUser] = useState();
-const [loadedEmail, setLoadedEmail] = useState();
-const [loadedStudentID, setLoadedStudentID] = useState();
-const [loadedImage, setLoadedImage] = useState();
+  var userEmail;
+  const [loadedUser, setLoadedUser] = useState();
+  const [loadedEmail, setLoadedEmail] = useState();
+  const [loadedStudentID, setLoadedStudentID] = useState();
+  const [loadedImage, setLoadedImage] = useState();
 
-const { isLoading, error, sendRequest, clearError } = useHttpClient();
-const userId = useParams().userId; 
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const userId = useParams().userId;
 
-useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const responseData = await sendRequest(
-        `http://localhost:5000/api/users/account/${userId}`
-      );
-      setLoadedUser(responseData.existingUser.name);
-      setLoadedEmail(responseData.existingUser.email);
-      setLoadedImage(responseData.existingUser.image);
-      //setLoadedStudentID(responseData.existingUser.studentID);
-      
-    } catch (err) {}
-  };
-  fetchUser();
-
-}, [sendRequest, userId]);
-console.log(loadedImage);
-
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:5000/api/users/account/${userId}`
+        );
+        setLoadedUser(responseData.existingUser.name);
+        setLoadedEmail(responseData.existingUser.email);
+        setLoadedImage(responseData.existingUser.image);
+        //setLoadedStudentID(responseData.existingUser.studentID);
+      } catch (err) {}
+    };
+    fetchUser();
+  }, [sendRequest, userId]);
+  console.log(loadedImage);
 
   return (
     <React.Fragment>
@@ -62,7 +62,7 @@ console.log(loadedImage);
                     <Card.Body>
                       <Card.Text>Full Name: </Card.Text>
                       <FormControl
-                        placeholder="Akshar"
+                        placeholder={loadedUser}
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
@@ -70,19 +70,18 @@ console.log(loadedImage);
 
                       <Card.Text>Campus Email Address: </Card.Text>
                       <FormControl
-                        placeholder="Patel"
+                        placeholder={loadedEmail}
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
                       />
                       <Card.Text>Student ID: </Card.Text>
                       <FormControl
-                        placeholder="akshar.patel@mavs.uta.edu"
+                        placeholder="I STILL NEED STUDENT ID"
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
                       />
-
                     </Card.Body>
                   </Card>
                 </Col>
@@ -92,7 +91,7 @@ console.log(loadedImage);
                     <Card.Body>
                       <div>Featured</div>
                       <Image
-                        src={profile_pic}
+                        src={loadedImage}
                         roundedCircle
                         style={{
                           height: "9rem",
@@ -119,7 +118,7 @@ console.log(loadedImage);
             </Tab>
             <Tab eventKey="Interests" title="Interests">
               <div>
-                Show selected interests with cards, gove option to cancel as
+                Show selected interests with cards, give option to cancel as
                 well.
               </div>
               <Accordion defaultActiveKey="0">
