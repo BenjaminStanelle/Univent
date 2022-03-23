@@ -10,6 +10,7 @@ const clubsRoutes = require('./routes/clubs-routes');
 //relative path to the file, placesRoutes is a middleware
 const placesRoutes = require('./routes/places-routes');
 const usersRoutes = require('./routes/users-routes');
+const eventsRoutes = require('./routes/events-routes');
 const HttpError = require('./models/http-error');
 
 //app object
@@ -43,6 +44,7 @@ app.use('/api/clubs', clubsRoutes);
 //to placesRoutes if they start with '/api/places/(anything), or anything added to that url
 app.use('/api/places', placesRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/events', eventsRoutes);
 
 app.use((req, res, next) => { //only reached if some request didn't get a response before ^^, a request we don't want to handle
   const error = new HttpError('Could not find this route.', 404);
