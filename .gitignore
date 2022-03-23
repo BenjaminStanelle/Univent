@@ -1,8 +1,4 @@
 *.png
 *package-lock*
-<<<<<<< HEAD
-*/notes
-=======
 */notes
 */node_modules
->>>>>>> Benjamins
