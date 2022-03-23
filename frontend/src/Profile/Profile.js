@@ -1,8 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import ErrorModal from '../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../shared/components/UIElements/LoadingSpinner';
-import { useHttpClient } from '../shared/hooks/http-hook';
-import { useParams } from 'react-router-dom';
+import React from "react";
 import {
   Row,
   Col,
@@ -15,8 +11,8 @@ import {
   Accordion,
 } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
-import profile_pic from "../images/club_symbol.png";
 
+import profile_pic from "../images/club_symbol.png";
 
 const Profile = () => {
 var userEmail
@@ -66,7 +62,7 @@ console.log(loadedImage);
                     <Card.Body>
                       <Card.Text>Full Name: </Card.Text>
                       <FormControl
-                        placeholder= {loadedUser}
+                        placeholder="Akshar"
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
@@ -74,16 +70,17 @@ console.log(loadedImage);
 
                       <Card.Text>Campus Email Address: </Card.Text>
                       <FormControl
-                        placeholder= {loadedEmail}
+                        placeholder="Patel"
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
                       />
                       <Card.Text>Student ID: </Card.Text>
                       <FormControl
-                        placeholder= "I STILL NEED STUDENT ID"
+                        placeholder="akshar.patel@mavs.uta.edu"
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
+                        disabled
                       />
 
                     </Card.Body>
@@ -95,7 +92,7 @@ console.log(loadedImage);
                     <Card.Body>
                       <div>Featured</div>
                       <Image
-                        src={loadedImage}
+                        src={profile_pic}
                         roundedCircle
                         style={{
                           height: "9rem",
