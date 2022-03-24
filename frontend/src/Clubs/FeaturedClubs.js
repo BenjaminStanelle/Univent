@@ -10,6 +10,7 @@ const FeaturedClubs = (props) => {
           <Card.Img
             variant="top"
             src={c.image}
+            alt=""
             style={{ height: "100%", width: "100%" }}
           />
           <Card.Body>
@@ -25,6 +26,7 @@ const FeaturedClubs = (props) => {
                 width: "3.5rem",
               }}
               src={c.symbol}
+              alt=""
             />
             <small className="text-muted">{c.clubName}</small>
           </Card.Footer>

@@ -11,7 +11,7 @@ import {
   Container,
 } from "react-bootstrap";
 
-import symbol from "../images/club_symbol.png";
+// import symbol from "../images/club_symbol.png";
 
 const ClubsList = (props) => {
   // Example POST method implementation:
@@ -44,7 +44,13 @@ const ClubsList = (props) => {
       <Col md={9}>
         {props.CLUBS.map((cb) => (
           <Card key={cb.id} style={{ margin: "1%", height: "10rem" }}>
-            <Card.Header style={{ fontWeight: "bold" }}>
+            <Card.Header
+              style={{
+                fontWeight: "500",
+                fontSize: 20,
+                fontFamily: "Copperplate",
+              }}
+            >
               {cb.clubname.replace("_", " ")}
             </Card.Header>
             <Card.Body style={{ margin: "0%" }}>
@@ -53,8 +59,8 @@ const ClubsList = (props) => {
                   <Card.Img
                     src={cb.image}
                     style={{
-                      height: "100%",
-                      width: "100%",
+                      height: "5.5rem",
+                      width: "5.5rem",
                       borderRadius: "50%",
                       margin: "auto",
                     }}
@@ -113,9 +119,11 @@ const ClubsList = (props) => {
                 </Dropdown.Item>
               ))}
             </DropdownButton>
+
             <Button
-              type="submit"
-              style={{ height: "60%", width: "25%", margin: "1%" }}
+              variant="outline-success"
+              style={{ margin: "5rem" }}
+              className="mt-4"
               onClick={postData}
             >
               Create Club

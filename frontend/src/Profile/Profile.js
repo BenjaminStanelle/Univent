@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ErrorModal from "../shared/components/UIElements/ErrorModal";
-import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
+// import ErrorModal from "../shared/components/UIElements/ErrorModal";
+// import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../shared/hooks/http-hook";
 import { useParams } from "react-router-dom";
 import {
@@ -15,13 +15,12 @@ import {
   Accordion,
 } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
-import profile_pic from "../images/club_symbol.png";
+// import profile_pic from "../images/club_symbol.png";
 
 const Profile = () => {
-  var userEmail;
   const [loadedUser, setLoadedUser] = useState();
   const [loadedEmail, setLoadedEmail] = useState();
-  const [loadedStudentID, setLoadedStudentID] = useState();
+  // const [loadedStudentID, setLoadedStudentID] = useState();
   const [loadedImage, setLoadedImage] = useState();
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();

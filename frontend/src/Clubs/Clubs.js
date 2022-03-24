@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
-// import event_img1 from "../images/event_pic1.jpeg";
-// import event_img2 from "../images/event_pic2.jpeg";
-// import img1 from "../images/club_pic.png";
-// import img2 from "../images/club_symbol.png";
 
 import "./Clubs.css";
 
 import { Carousel, Container } from "react-bootstrap";
 import FeaturedClubs from "./FeaturedClubs";
 import ClubsList from "./ClubsList";
-import { useHttpClient } from "../shared/hooks/http-hook";
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 
 const CLUB_CATEGORIES = [
   {
@@ -43,19 +39,14 @@ const CLUB_CATEGORIES = [
 ];
 
 const Clubs = () => {
-  // const [isLoading, setIsLoading] = useState(false);
-
   const [gotAllClubs, setGotAllClubs] = useState(false);
   const [gotFeaturedClubs, setGotFeaturedClubs] = useState(false);
   // const [gotSearchedClub, setGotSearchedClub] = useState(false);
-  const [clubCreated, setClubCreated] = useState(false);
   let gotAllData = false;
 
   const [allClubs, setAllClubs] = useState([]);
   const [featuredClubsList, setFeaturedClubsList] = useState([]);
   // const [searchedClub, setsearchedClub] = useState([]);
-  const [clubCreatedResp, setClubCreatedResp] = useState("empty");
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const getData = () => {
     fetch("data.json")
@@ -144,12 +135,15 @@ const Clubs = () => {
 
   if (gotAllClubs && gotFeaturedClubs) {
     gotAllData = true;
-    // console.log("Got All Data :- ", allClubs, featuredClubsList);
   }
 
   return (
     <React.Fragment>
-      {!gotAllData && <h3>Data Not Available</h3>}
+      {!gotAllData && (
+        <Container style={{ textAlign: "center" }}>
+          <LoadingSpinner />
+        </Container>
+      )}
       {gotAllData && (
         <React.Fragment>
           <h4 className="featured-text">Check out Featured Clubs</h4>
