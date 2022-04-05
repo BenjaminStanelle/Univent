@@ -51,6 +51,8 @@
   React rerenders the UI when you update the state of the component
 
 <b> USER STORIES </b>
+
+
 <img src="images/Iteration_1_userStories.png" width= "800" >
 
 <img src="images/Iteration_2_userStories.png" width= "800" >
