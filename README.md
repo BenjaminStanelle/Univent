@@ -50,7 +50,12 @@
   React Components are functions, that return JSX, react element calls, or javascript class with render method.
   React rerenders the UI when you update the state of the component
 
+<b> USER STORIES </b>
+<img src="images/Iteration_1_userStories.png" width= "800" >
 
+<img src="images/Iteration_2_userStories.png" width= "800" >
+
+<img src="images/Iteration_3_userStories.png" width= "800" >
 <b>HOW TO RUN THE WEB APPLICATION LOCALLY</b>
 
   1) Download visual studio code
