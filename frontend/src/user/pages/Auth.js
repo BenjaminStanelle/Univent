@@ -22,6 +22,7 @@ const Auth = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
+  // Custom Hook to initialize form with blank value
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -36,6 +37,7 @@ const Auth = () => {
     false
   );
 
+  // Takes care of input values of email or password when user switches between signup and login. all values should be blank initially
   const switchModeHandler = () => {
     if (!isLoginMode) {
       setFormData(
@@ -65,6 +67,7 @@ const Auth = () => {
     setIsLoginMode((prevMode) => !prevMode);
   };
 
+  // on submit, this function sends request to blackend and backend checks with DB if user exists. and if signing up then sends info to backend DB.
   const authSubmitHandler = async (event) => {
     event.preventDefault();
 
