@@ -95,7 +95,7 @@ const Auth = () => {
         formData.append("name", formState.inputs.name.value);
         formData.append("password", formState.inputs.password.value);
         formData.append("image", formState.inputs.image.value);
-        formData.append("studentID", "12345");
+        formData.append("studentID", formState.inputs.studentID.value);
         const responseData = await sendRequest(
           "http://localhost:5000/api/users/signup/student",
           // http://localhost:5000/api/users/signup/admin
@@ -153,6 +153,17 @@ const Auth = () => {
             errorText="Please enter a valid password, at least 6 characters."
             onInput={inputHandler}
           />
+          {!isLoginMode && (
+            <Input
+              element="input"
+              id="studentID"
+              type="text"
+              label="Student ID"
+              validators={[VALIDATOR_MINLENGTH(10)]}
+              errorText="Please enter a valid Student ID, at least 10 characters."
+              onInput={inputHandler}
+            />
+          )}
           <Button type="submit" disabled={!formState.isValid}>
             {isLoginMode ? "LOGIN" : "SIGNUP"}
           </Button>

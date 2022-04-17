@@ -24,6 +24,7 @@ const Profile = () => {
   const [loadedUser, setLoadedUser] = useState();
   const [loadedEmail, setLoadedEmail] = useState();
   const [loadedImage, setLoadedImage] = useState();
+  const [loadedStudentID, setLoadedStudentID] = useState();
 
   //
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -35,20 +36,20 @@ const Profile = () => {
     const fetchUser = async () => {
       try {
         //await returns a promise object, waiting until the promise accepts or rejects.
-        const responseData = await sendRequest( 
+        const responseData = await sendRequest(
           `http://localhost:5000/api/users/account/${userId}` /*Sends get request(by default), 
                                                               to backend with a dynamic user id.*/
-                                                              //send request function fron http-hook.js
+          //send request function fron http-hook.js
         );
         //Loading response data into states
-        setLoadedUser(responseData.existingUser.name); 
+        setLoadedUser(responseData.existingUser.name);
         setLoadedEmail(responseData.existingUser.email); //loading into loadedEmail
         setLoadedImage(responseData.existingUser.image);
-
+        setLoadedStudentID(responseData.existingUser.studentID);
       } catch (err) {}
     };
-    fetchUser();  
-  }, [sendRequest, userId]);  //dependencies of useEffect
+    fetchUser();
+  }, [sendRequest, userId]); //dependencies of useEffect
   console.log(loadedImage);
 
   return (
@@ -85,7 +86,7 @@ const Profile = () => {
                       />
                       <Card.Text>Student ID: </Card.Text>
                       <FormControl
-                        placeholder="I STILL NEED STUDENT ID"
+                        placeholder={loadedStudentID}
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
