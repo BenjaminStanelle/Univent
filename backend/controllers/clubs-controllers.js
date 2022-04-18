@@ -15,28 +15,34 @@ const getAllClubs = async (req, res, next) => {
   if (!clubs) {
     return next(new HttpError("can't find any clubs.", 404));
   }
+
   res.json({ clubs: clubs.map((club) => club.toObject({ getters: true })) });
 };
 
-const getClubByName = async (req, res, next) => {
-  /**
-   * takes a club name from the URL and returns the database entry for that club
-   */
-  const clubname = req.params.cn;
-  let clubs;
+const getClubById = async (req, res, next) => {
+  const clubId = req.params.cn;
 
-  // find the club by clubname
+  let club;
+
   try {
-    clubs = await Club.find({ clubname: clubname }).exec();
+    club = await Club.findById(clubId);
   } catch (err) {
-    return next(new HttpError("something went wrong", 500));
+    const error = new HttpError(
+      "Something went wrong, could not find a club.",
+      500
+    );
+    return next(error);
   }
 
-  if (!clubs) {
-    return next(new HttpError("can't find club with that name", 404));
+  if (!club) {
+    const error = new HttpError(
+      "Could not find club for the provided id.",
+      404
+    );
+    return next(error);
   }
 
-  res.json({ clubs: clubs.map((club) => club.toObject({ getters: true })) });
+  res.json({ club: club.toObject({ getters: true }) });
 };
 
 const getClubsByUserId = async (req, res, next) => {
@@ -139,7 +145,7 @@ const deleteClub = async (req, res, next) => {
     return next(new HttpError("something went wrong", 500));
   }
   if (!club) {
-    return next(new HttpError("Could not find place for this id", 404));
+    return next(new HttpError("Could not find club for this id", 404));
   }
   try {
     const sess = await mongoose.startSession();
@@ -158,7 +164,7 @@ const deleteClub = async (req, res, next) => {
 
 exports.getAllClubs = getAllClubs;
 exports.createClub = createClub;
-exports.getClubByName = getClubByName;
+exports.getClubById = getClubById;
 exports.getClubsByUserId = getClubsByUserId;
 exports.updateClub = updateClub;
 exports.deleteClub = deleteClub;

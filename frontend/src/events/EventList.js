@@ -51,13 +51,11 @@ const EVENTS = [
 ];
 
 const EventList = (props) => {
-  let gotAllData = false;
   /*use state is a hook that allows you to have state variables in functional components.
   Allows us to register state which then is managed inside of a component, when state is changed, 
   the component re-renders*/
   const [existingEvents, setExistingEvents] = useState();
 
-  //
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   //gets dynamic user id front the URL.
   //const userId = useParams().userId;
@@ -73,22 +71,16 @@ const EventList = (props) => {
           //send request function fron http-hook.js
         );
         //Loading response data into states
+
         setExistingEvents(responseData.events);
-      } catch (err) {
-        console.log("errorr occured: ", err);
-      }
+      } catch (err) {}
     };
     fetchEvents();
   }, [sendRequest]); //dependencies of useEffect
 
-  console.log("==>" + existingEvents);
-  // console.log(EVENTS);
+  console.log(existingEvents);
+  //console.log(EVENTS);
   //you should be able to use existingEvents the same way you did with EVENTS
-
-  if (existingEvents) {
-    gotAllData = true;
-    console.log("->" + existingEvents);
-  }
 
   if (EVENTS.length === 0) {
     return (
