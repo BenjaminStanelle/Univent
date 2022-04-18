@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-
-// import UsersList from "../components/UsersList";
-// import App from "../../App";
+import React, { useState } from "react";
 
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
@@ -91,40 +88,23 @@ const EVENTS = [
 
 const Dashboard = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  // const [loadedUsers, setLoadedUsers] = useState();
 
   const [keyword, setkeyword] = useState(null);
-  const [events, setEvents] = useState([]);
-  const [orgs, setOrgs] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     try {
-  //       const responseData = await sendRequest(
-  //         "http://localhost:5000/api/users"
-  //       );
+  // Below is the Code for search on dashboard
+  // const [events, setEvents] = useState([]);
+  // const [orgs, setOrgs] = useState([]);
 
-  //       setLoadedUsers(responseData.users);
-  //     } catch (err) {}
-  //   };
-  //   fetchUsers();
-  // }, [sendRequest]);
-
-  const fetchSearchResult = (key) => {
-    fetch("http://localhost:5000/api/search/" + key)
-      .then((response) => {
-        setEvents(response.body.events);
-        setOrgs(response.body.orgs);
-
-        // {events: [], orgs: [], forms: []}
-
-        //response.body
-        //[{title: "", link:"", image:""},{title: "", link:"", image:""}, {title: "", link:"", image:""}]
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const fetchSearchResult = (key) => {
+  //   fetch("http://localhost:5000/api/search/" + key)
+  //     .then((response) => {
+  //       setEvents(response.body.events);
+  //       setOrgs(response.body.orgs);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   return (
     <React.Fragment>

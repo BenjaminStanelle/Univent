@@ -7,20 +7,16 @@ import {
 } from "react-router-dom";
 
 import Dashboard from "./user/pages/Dashboard";
-// import NewPlace from "./places/pages/NewPlace";
-import UserPlaces from "./places/pages/UserPlaces";
-// import UpdatePlace from "./places/pages/UpdatePlace";
 import Auth from "./user/pages/Auth";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
 
 import Forms from "./forms/Forms";
-import Events from "./events/EventList";
+import Events from "./events/Events";
 import Clubs from "./Clubs/Clubs";
 import ClubInfo from "./Clubs/ClubInfo";
 import Profile from "./Profile/Profile";
-// import Group from "./groups/pages/Group";
 // import Dashboard from "./dashboard/pages/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -45,16 +41,10 @@ const App = () => {
         <Route path="/clubs" exact>
           <Clubs />
         </Route>
-
-        {/* <Route path="/:userId/places" exact></Route>
-        <Route path="/groups/:groupUserId/" exact></Route> */}
         <Route path="/events">
           <Events />
         </Route>
-        {/* <Route path="/places/new" exact></Route>
-        <Route path="/places/:placeId">
-          <UpdatePlace />
-        </Route> */}
+
         <Route path="/forms">
           <Forms />
         </Route>
@@ -74,9 +64,6 @@ const App = () => {
       <Switch>
         <Route path="/" exact>
           <Dashboard />
-        </Route>
-        <Route path="/:userId/places" exact>
-          <UserPlaces />
         </Route>
         <Route path="/auth">
           <Auth />
