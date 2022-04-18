@@ -22,6 +22,7 @@ const Auth = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
+  // Custom Hook to initialize form with blank value
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {
@@ -36,6 +37,7 @@ const Auth = () => {
     false
   );
 
+  // Takes care of input values of email or password when user switches between signup and login. all values should be blank initially
   const switchModeHandler = () => {
     if (!isLoginMode) {
       setFormData(
@@ -65,6 +67,7 @@ const Auth = () => {
     setIsLoginMode((prevMode) => !prevMode);
   };
 
+  // on submit, this function sends request to blackend and backend checks with DB if user exists. and if signing up then sends info to backend DB.
   const authSubmitHandler = async (event) => {
     event.preventDefault();
 
@@ -92,7 +95,7 @@ const Auth = () => {
         formData.append("name", formState.inputs.name.value);
         formData.append("password", formState.inputs.password.value);
         formData.append("image", formState.inputs.image.value);
-        formData.append("studentID", "12345");
+        formData.append("studentID", formState.inputs.studentID.value);
         const responseData = await sendRequest(
           "http://localhost:5000/api/users/signup/student",
           // http://localhost:5000/api/users/signup/admin
@@ -150,6 +153,17 @@ const Auth = () => {
             errorText="Please enter a valid password, at least 6 characters."
             onInput={inputHandler}
           />
+          {!isLoginMode && (
+          <Input
+            element="input"
+            id="studentID"
+            type="text"
+            label="Student ID"
+            validators={[VALIDATOR_MINLENGTH(10)]}
+            errorText="Please enter a valid Student ID, at least 10 characters."
+            onInput={inputHandler}
+          />
+          )}
           <Button type="submit" disabled={!formState.isValid}>
             {isLoginMode ? "LOGIN" : "SIGNUP"}
           </Button>

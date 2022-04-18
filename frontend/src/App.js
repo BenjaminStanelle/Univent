@@ -18,6 +18,7 @@ import { useAuth } from "./shared/hooks/auth-hook";
 import Forms from "./forms/Forms";
 import Events from "./events/EventList";
 import Clubs from "./Clubs/Clubs";
+import ClubInfo from "./Clubs/ClubInfo";
 import Profile from "./Profile/Profile";
 // import Group from "./groups/pages/Group";
 // import Dashboard from "./dashboard/pages/Dashboard";
@@ -59,6 +60,9 @@ const App = () => {
         </Route>
         <Route path="/account/:userId">
           <Profile />
+        </Route>
+        <Route path="/clubs/:clubId">
+          <ClubInfo />
         </Route>
         <Redirect to="/" />
       </Switch>

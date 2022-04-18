@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import ErrorModal from "../shared/components/UIElements/ErrorModal";
-// import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../shared/hooks/http-hook";
 import { useParams } from "react-router-dom";
 import {
@@ -13,23 +13,30 @@ import {
   Form,
   Button,
   Accordion,
+  Carousel, 
+  Container
 } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
-// import profile_pic from "../images/club_symbol.png";
+ import profile_pic from "../images/club_symbol.png";
 
-const Profile = () => {
-  /*use state is a hook that allows you to have state variables in functional components.
+const ClubInfo = () => {
+ /*use state is a hook that allows you to have state variables in functional components.
   Allows us to register state which then is managed inside of a component, when state is changed, 
   the component re-renders*/
-  const [loadedUser, setLoadedUser] = useState();
-  const [loadedEmail, setLoadedEmail] = useState();
-  const [loadedImage, setLoadedImage] = useState();
-  const [loadedStudentID, setLoadedStudentID] = useState();
+  const [gotAllClubs, setGotAllClubs] = useState(false);
 
-  //
+  const [loadedClubName, setClubName] = useState();
+  const [loadedDescription, setDescription] = useState();
+  const [loadedImage, setImage] = useState();
+  const [loadedClubCat, setClubCat] = useState();
+  const [loadedUsers, setUsers] = useState();
+  const [loadedEvents, setEvents] = useState();
+  
+  let gotAllData = false;
+
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   //gets dynamic user id front the URL.
-  const userId = useParams().userId;
+  const clubID = useParams().clubId;
 
   //use affect runs for one render, thereafter runs if the dependencies sendRequest, or userID are changed.
   useEffect(() => {
@@ -37,26 +44,34 @@ const Profile = () => {
       try {
         //await returns a promise object, waiting until the promise accepts or rejects.
         const responseData = await sendRequest( 
-          `http://localhost:5000/api/users/account/${userId}` /*Sends get request(by default), 
-                                                              to backend with a dynamic user id.*/
+          `http://localhost:5000/api/clubs/${clubID}` /*Sends get request(by default), 
+                                                              to backend with a dynamic club id.*/
                                                               //send request function fron http-hook.js
         );
         //Loading response data into states
-        setLoadedUser(responseData.existingUser.name); 
-        setLoadedEmail(responseData.existingUser.email); //loading into loadedEmail
-        setLoadedImage(responseData.existingUser.image);
-        setLoadedStudentID(responseData.existingUser.studentID);
+        setGotAllClubs(true);
+        setClubName(responseData.club.clubname); 
+        setDescription(responseData.club.description); //loading into loadedEmail
+        setImage(responseData.club.image);
+        setClubCat(responseData.club.clubCat);
+        setUsers(responseData.club.users);
+        setEvents(responseData.club.events);
 
       } catch (err) {}
     };
     fetchUser();  
-  }, [sendRequest, userId]);  //dependencies of useEffect
-  console.log(loadedImage);
-
+  }, [sendRequest, clubID]);  //dependencies of useEffect
+console.log(loadedEvents)
   return (
     <React.Fragment>
-      <h1 className="basic-title-styles">My Account</h1>
-      <h3 className="basic-title-styles">Profile</h3>
+      {!gotAllClubs && (
+        <Container style={{ textAlign: "center" }}>
+          <LoadingSpinner />
+        </Container>
+      )}
+      {gotAllClubs && (<React.Fragment>
+      <h1 className="basic-title-styles">{loadedClubName}</h1>
+      <h3 className="basic-title-styles">About the Club</h3>
       <Card>
         <Card.Body>
           <Tabs
@@ -64,15 +79,15 @@ const Profile = () => {
             id="uncontrolled-tab-example"
             className="mb-3"
           >
-            <Tab eventKey="Profile" title="Profile">
+            <Tab eventKey="Profile" title="Club Info">
               <Row>
                 <Col md={8}>
                   <Card>
                     <Card.Header>Profile Information</Card.Header>
                     <Card.Body>
-                      <Card.Text>Full Name: </Card.Text>
+                      <Card.Text>Club Name: </Card.Text>
                       <FormControl
-                        placeholder={loadedUser}
+                        placeholder={loadedClubName}
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
@@ -80,14 +95,14 @@ const Profile = () => {
 
                       <Card.Text>Campus Email Address: </Card.Text>
                       <FormControl
-                        placeholder={loadedEmail}
+                        placeholder={loadedClubName}
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
                       />
                       <Card.Text>Student ID: </Card.Text>
                       <FormControl
-                        placeholder={loadedStudentID}
+                        placeholder={loadedClubName}
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
@@ -97,7 +112,7 @@ const Profile = () => {
                 </Col>
                 <Col md={4}>
                   <Card>
-                    <Card.Header>Profile Picture</Card.Header>
+                    <Card.Header>Club Picture</Card.Header>
                     <Card.Body>
                       <div>Featured</div>
                       <Image
@@ -160,8 +175,10 @@ const Profile = () => {
           </Button>{" "}
         </Card.Body>
       </Card>
+      </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
 
-export default Profile;
+export default ClubInfo;

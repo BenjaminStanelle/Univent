@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 
 // import Card from "../shared/components/UIElements/Card";
 // import Button from "../shared/components/FormElements/Button";
 import event_img1 from "../images/event_pic1.jpeg";
 import event_img2 from "../images/event_pic2.jpeg";
+import { useHttpClient } from '../shared/hooks/http-hook';
 import "./EventList.css";
 
 import {
@@ -47,6 +48,40 @@ const EVENTS = [
 ];
 
 const EventList = (props) => {
+
+    /*use state is a hook that allows you to have state variables in functional components.
+  Allows us to register state which then is managed inside of a component, when state is changed, 
+  the component re-renders*/
+  const [existingEvents, setExistingEvents] = useState();
+
+
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  //gets dynamic user id front the URL.
+  //const userId = useParams().userId;
+
+  //use affect runs for one render, thereafter runs if the dependencies sendRequest, or userID are changed.
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        //await returns a promise object, waiting until the promise accepts or rejects.
+        const responseData = await sendRequest( 
+          `http://localhost:5000/api/events/getEvents` /*Sends get request(by default), 
+                                                              to backend.*/
+                                                              //send request function fron http-hook.js
+        );
+        //Loading response data into states
+
+        setExistingEvents(responseData.events); 
+      } catch (err) {}
+    };
+    fetchEvents();  
+  }, [sendRequest]);  //dependencies of useEffect
+
+
+  console.log(existingEvents);
+  //console.log(EVENTS);
+  //you should be able to use existingEvents the same way you did with EVENTS
+
   if (EVENTS.length === 0) {
     return (
       <div className="place-list center">

@@ -5,7 +5,7 @@ import './Input.css';
 //Login page input
 
 /* Hooks allow you to add various functionalities to function components,
-    useState()- hook allows us to register state which then is managed inside ofa  component, when state is changed, the component re-renders(re-evaulated and might be lead to re-rendering of DOM)
+    useState()- hook allows us to register state which then is managed inside of a component, when state is changed, the component re-renders(re-evaulated and might be lead to re-rendering of DOM)
     
     useEffect() - does something different: It allows you to register some logic (i.e. a JS function) which will be executed when certain dependencies - which you define - change.
     useEffect() re-evaluates the dependency values whenever the component in which you use useEffect() is re-evaluated (i.e. whenever the component's props or state changed).

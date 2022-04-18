@@ -16,7 +16,7 @@ router.post(
     
 router.get('/allclubs', clubsControllers.getAllClubs);
 router.get('/users', clubsControllers.getClubsByUserId);
-router.get('/:cn', clubsControllers.getClubByName);
+router.get('/:cn', clubsControllers.getClubById);
 router.patch('/:cn', clubsControllers.updateClub);
 router.delete('/:cn', clubsControllers.deleteClub);
 
