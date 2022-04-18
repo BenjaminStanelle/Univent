@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
+import event_img1 from "../images/event_pic1.jpeg";
 
 const EventsList = (props) => {
   // POST method implementation for creating new events:
@@ -16,13 +17,13 @@ const EventsList = (props) => {
                 fontFamily: "Copperplate",
               }}
             >
-              {ev.title.replace("_", " ")}
+              {ev.eventname.replace("_", " ")}
             </Card.Header>
             <Card.Body style={{ margin: "0%" }}>
               <Row>
                 <Col md={2}>
                   <Card.Img
-                    src={ev.image}
+                    src={event_img1}
                     style={{
                       height: "5.5rem",
                       width: "5.5rem",
@@ -33,8 +34,8 @@ const EventsList = (props) => {
                 </Col>
                 <Col md={8}>
                   <div style={{ textAlign: "left", paddingTop: "2%" }}></div>
-                  <p>{ev.date}</p>
-                  <p>{ev.address}</p>
+                  <p>{ev.time}</p>
+                  <p>{ev.location}</p>
                 </Col>
                 <Col md={2}>
                   <Button variant="primary" className="mt-4">

@@ -51,6 +51,7 @@ const EVENTS = [
 ];
 
 const EventList = (props) => {
+  let gotAllData = false;
   /*use state is a hook that allows you to have state variables in functional components.
   Allows us to register state which then is managed inside of a component, when state is changed, 
   the component re-renders*/
@@ -78,10 +79,6 @@ const EventList = (props) => {
     fetchEvents();
   }, [sendRequest]); //dependencies of useEffect
 
-  console.log(existingEvents);
-  //console.log(EVENTS);
-  //you should be able to use existingEvents the same way you did with EVENTS
-
   if (EVENTS.length === 0) {
     return (
       <div className="place-list center">
@@ -92,6 +89,9 @@ const EventList = (props) => {
       </div>
     );
   }
+  if (existingEvents) {
+    gotAllData = true;
+  }
   //goes through every place we have and renders a <PlaceItem> for every place
   return (
     <React.Fragment>
@@ -101,71 +101,72 @@ const EventList = (props) => {
         </Container>
       )}
       {gotAllData && (
-        <div>
-          <h2 className="basic-title-styles">EVENTS</h2>
-          <Row>
-            <Col md={3}>
-              <InputGroup
-                className="mb-3"
-                style={{ height: "10%", margin: "1%" }}
-              >
-                <FormControl
-                  placeholder="Search Events"
-                  aria-label="Search Events"
-                  aria-describedby="basic-addon2"
-                  style={{ height: "100%", width: "70%", margin: "1%" }}
-                />
-
-                <Button
-                  type="submit"
-                  style={{ height: "100%", width: "25%", margin: "1%" }}
-                >
-                  SEARCH
-                </Button>
-                <div
-                  key={"default-radio"}
+        <React.Fragment>
+          <div>
+            <h2 className="basic-title-styles">EVENTS</h2>
+            <Row>
+              <Col md={3}>
+                <InputGroup
                   className="mb-3"
-                  style={{ margin: "1rem" }}
+                  style={{ height: "10%", margin: "1%" }}
                 >
-                  <Form.Check type="radio" id="weekend" label="Weekend" />
-                  <Form.Check type="radio" id="tomorrow" label="Tomorrow" />
-                </div>
-              </InputGroup>
-            </Col>
-            <Col md={9}>
-              <Carousel>
-                {EVENTS.map((ev) => (
-                  <Carousel.Item key={ev.id} interval={2500}>
-                    <CardGroup>
-                      {EVENTS.map((evt) => (
-                        <Card key={evt.id} style={{ margin: "1%" }}>
-                          <Card.Img
-                            variant="top"
-                            src={evt.image}
-                            style={{ height: "100%", width: "100%" }}
-                          />
-                          <Card.Body>
-                            <Card.Title>{evt.title}</Card.Title>
-                            <Card.Text>{evt.date}</Card.Text>
-                            <Card.Text>{evt.address}</Card.Text>
-                          </Card.Body>
-                          <Card.Footer>
-                            <small className="text-muted">
-                              {evt.organizedBy}
-                            </small>
-                          </Card.Footer>
-                        </Card>
-                      ))}
-                    </CardGroup>
-                  </Carousel.Item>
-                ))}
-              </Carousel>
-            </Col>
-          </Row>
-        </div>
-      )}
+                  <FormControl
+                    placeholder="Search Events"
+                    aria-label="Search Events"
+                    aria-describedby="basic-addon2"
+                    style={{ height: "100%", width: "70%", margin: "1%" }}
+                  />
 
-      <EventsList EVENTS={EVENTS} />
+                  <Button
+                    type="submit"
+                    style={{ height: "100%", width: "25%", margin: "1%" }}
+                  >
+                    SEARCH
+                  </Button>
+                  <div
+                    key={"default-radio"}
+                    className="mb-3"
+                    style={{ margin: "1rem" }}
+                  >
+                    <Form.Check type="radio" id="weekend" label="Weekend" />
+                    <Form.Check type="radio" id="tomorrow" label="Tomorrow" />
+                  </div>
+                </InputGroup>
+              </Col>
+              <Col md={9}>
+                <Carousel>
+                  {EVENTS.map((ev) => (
+                    <Carousel.Item key={ev.id} interval={2500}>
+                      <CardGroup>
+                        {EVENTS.map((evt) => (
+                          <Card key={evt.id} style={{ margin: "1%" }}>
+                            <Card.Img
+                              variant="top"
+                              src={evt.image}
+                              style={{ height: "100%", width: "100%" }}
+                            />
+                            <Card.Body>
+                              <Card.Title>{evt.title}</Card.Title>
+                              <Card.Text>{evt.date}</Card.Text>
+                              <Card.Text>{evt.address}</Card.Text>
+                            </Card.Body>
+                            <Card.Footer>
+                              <small className="text-muted">
+                                {evt.organizedBy}
+                              </small>
+                            </Card.Footer>
+                          </Card>
+                        ))}
+                      </CardGroup>
+                    </Carousel.Item>
+                  ))}
+                </Carousel>
+              </Col>
+            </Row>
+          </div>
+          <EventsList EVENTS={existingEvents} />
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
