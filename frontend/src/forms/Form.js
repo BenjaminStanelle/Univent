@@ -22,7 +22,7 @@ const FORMS_LIST = [
   { id: "4", title: "Be a speaker", expiredAt: "0000-00-00", link: "" },
 ];
 
-function FormComp() {
+function Form() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -84,4 +84,4 @@ function FormComp() {
   );
 }
 
-export default FormComp;
+export default Form;

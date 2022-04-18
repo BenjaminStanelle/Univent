@@ -15,7 +15,7 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
 
-import Forms from "./forms/Forms";
+import FormsPage from "./forms/FormsPage";
 import Events from "./events/EventList";
 import Clubs from "./Clubs/Clubs";
 import Profile from "./Profile/Profile";
@@ -55,7 +55,7 @@ const App = () => {
           <UpdatePlace />
         </Route> */}
         <Route path="/forms">
-          <Forms />
+          <FormsPage />
         </Route>
         <Route path="/a1/account">
           <Profile />
