@@ -15,6 +15,7 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
 
+// TOOD: Rename all to ..Page
 import FormsPage from "./forms/FormsPage";
 import Events from "./events/EventList";
 import Clubs from "./Clubs/Clubs";
