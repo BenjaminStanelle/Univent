@@ -39,6 +39,9 @@ app.use((req, res, next) => {
   next();
 });
 
+const searchRouter = require("./routes/search_routes")
+
+app.use("/api", searchRouter)
 app.use('/api/clubs', clubsRoutes);
 //routes added as middleware '/api/places' is the filter, express only forwards requests
 //to placesRoutes if they start with '/api/places/(anything), or anything added to that url
