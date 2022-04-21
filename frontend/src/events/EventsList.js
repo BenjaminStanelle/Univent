@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, Row, Col} from "react-bootstrap";
+import { Card, Button, Row, Col } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import event_img1 from "../images/event_pic1.jpeg";
 
@@ -47,7 +47,11 @@ const EventsList = (props) => {
                   <p>{ev.location}</p>
                 </Col>
                 <Col md={2}>
-                  <Button variant="primary" className="mt-4" onClick={routeChange(ev.id)}>
+                  <Button
+                    variant="primary"
+                    className="mt-4"
+                    onClick={routeChange(ev.id)}
+                  >
                     More Detail
                   </Button>
                 </Col>

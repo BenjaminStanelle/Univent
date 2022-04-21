@@ -57,7 +57,7 @@ const EventList = (props) => {
   the component re-renders*/
   const [existingEvents, setExistingEvents] = useState();
 
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { sendRequest } = useHttpClient();
   //gets dynamic user id front the URL.
   //const userId = useParams().userId;
 
