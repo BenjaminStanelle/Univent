@@ -19,6 +19,7 @@ import Forms from "./forms/Forms";
 import Events from "./events/EventList";
 import Clubs from "./Clubs/Clubs";
 import ClubInfo from "./Clubs/ClubInfo";
+import EventInfo from "./events/EventInfo";
 import Profile from "./Profile/Profile";
 // import Group from "./groups/pages/Group";
 // import Dashboard from "./dashboard/pages/Dashboard";
@@ -48,13 +49,12 @@ const App = () => {
 
         {/* <Route path="/:userId/places" exact></Route>
         <Route path="/groups/:groupUserId/" exact></Route> */}
-        <Route path="/events">
+        <Route path="/events" exact>
           <Events />
         </Route>
-        {/* <Route path="/places/new" exact></Route>
-        <Route path="/places/:placeId">
-          <UpdatePlace />
-        </Route> */}
+        {<Route path="/events/:eventId">
+          <EventInfo />
+        </Route>}
         <Route path="/forms">
           <Forms />
         </Route>

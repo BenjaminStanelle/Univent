@@ -19,7 +19,6 @@ const getAllClubs = async (req, res, next) => {
   res.json({ clubs: clubs.map((club) => club.toObject({ getters: true })) });
 };
 
-
 const getClubById = async (req, res, next) => {
   const clubId = req.params.cn;
 
@@ -29,7 +28,7 @@ const getClubById = async (req, res, next) => {
     club = await Club.findById(clubId);
   } catch (err) {
     const error = new HttpError(
-      'Something went wrong, could not find a club.',
+      "Something went wrong, could not find a club.",
       500
     );
     return next(error);
@@ -37,7 +36,7 @@ const getClubById = async (req, res, next) => {
 
   if (!club) {
     const error = new HttpError(
-      'Could not find club for the provided id.',
+      "Could not find club for the provided id.",
       404
     );
     return next(error);

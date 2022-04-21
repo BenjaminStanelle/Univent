@@ -14,17 +14,14 @@ import {
 
 // import symbol from "../images/club_symbol.png";
 
-
-
 const ClubsList = (props) => {
-
   const history = useHistory();
   //route change for when user clicks more details button
-  const routeChange = clubId =>() =>{
-    let path = '/clubs/' + clubId;
+  const routeChange = (clubId) => () => {
+    let path = "/clubs/" + clubId;
 
     history.push(path);
-  }
+  };
 
   // Example POST method implementation:
   async function postData() {
@@ -50,7 +47,6 @@ const ClubsList = (props) => {
     });
     return response.json();
   }
-
 
   return (
     <Row>
@@ -85,7 +81,11 @@ const ClubsList = (props) => {
                   </p>
                 </Col>
                 <Col md={2}>
-                  <Button variant="primary" className="mt-4" onClick={routeChange(cb.id)}>
+                  <Button
+                    variant="primary"
+                    className="mt-4"
+                    onClick={routeChange(cb.id)}
+                  >
                     More Detail
                   </Button>
                 </Col>

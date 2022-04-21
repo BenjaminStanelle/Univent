@@ -154,15 +154,15 @@ const Auth = () => {
             onInput={inputHandler}
           />
           {!isLoginMode && (
-          <Input
-            element="input"
-            id="studentID"
-            type="text"
-            label="Student ID"
-            validators={[VALIDATOR_MINLENGTH(10)]}
-            errorText="Please enter a valid Student ID, at least 10 characters."
-            onInput={inputHandler}
-          />
+            <Input
+              element="input"
+              id="studentID"
+              type="text"
+              label="Student ID"
+              validators={[VALIDATOR_MINLENGTH(10)]}
+              errorText="Please enter a valid Student ID, at least 10 characters."
+              onInput={inputHandler}
+            />
           )}
           <Button type="submit" disabled={!formState.isValid}>
             {isLoginMode ? "LOGIN" : "SIGNUP"}
