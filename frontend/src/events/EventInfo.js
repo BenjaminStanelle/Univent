@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import ErrorModal from "../shared/components/UIElements/ErrorModal";
-// import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../shared/hooks/http-hook";
 import { useParams } from "react-router-dom";
 import {
@@ -13,49 +13,69 @@ import {
   Form,
   Button,
   Accordion,
+  Carousel, 
+  Container
 } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
-// import profile_pic from "../images/club_symbol.png";
 
-const Profile = () => {
-  /*use state is a hook that allows you to have state variables in functional components.
+
+const EventInfo = () => {
+ /*use state is a hook that allows you to have state variables in functional components.
   Allows us to register state which then is managed inside of a component, when state is changed, 
   the component re-renders*/
-  const [loadedUser, setLoadedUser] = useState();
-  const [loadedEmail, setLoadedEmail] = useState();
-  const [loadedImage, setLoadedImage] = useState();
-  const [loadedStudentID, setLoadedStudentID] = useState();
+  const [gotAllEvents, setGotAllEvents] = useState(false);
 
-  //
-  const { sendRequest } = useHttpClient();
+  const [loadedEventName, setEventName] = useState();
+  const [loadedTime, setTime ] = useState();
+  const [loadedDate, setDate ] = useState();
+  const [loadedLocation, setLocation] = useState();
+  const [loadedImages, setImages] = useState();
+  const [loadedClubImage, setClubImage] = useState();
+  const [loadedClubs, setClubs] = useState();
+
+
+  let gotAllData = false;
+
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   //gets dynamic user id front the URL.
-  const userId = useParams().userId;
+  const eventID = useParams().eventId;
 
   //use affect runs for one render, thereafter runs if the dependencies sendRequest, or userID are changed.
   useEffect(() => {
     const fetchUser = async () => {
       try {
         //await returns a promise object, waiting until the promise accepts or rejects.
-        const responseData = await sendRequest(
-          `http://localhost:5000/api/users/account/${userId}` /*Sends get request(by default), 
-                                                              to backend with a dynamic user id.*/
-          //send request function fron http-hook.js
+        const responseData = await sendRequest( 
+          `http://localhost:5000/api/events/${eventID}` /*Sends get request(by default), 
+                                                              to backend with a dynamic club id.*/
+                                                              //send request function fron http-hook.js
         );
         //Loading response data into states
-        setLoadedUser(responseData.existingUser.name);
-        setLoadedEmail(responseData.existingUser.email); //loading into loadedEmail
-        setLoadedImage(responseData.existingUser.image);
-        setLoadedStudentID(responseData.existingUser.studentID);
+        setGotAllEvents(true);
+
+        setEventName(responseData.event.eventname); 
+        setTime(responseData.event.time); 
+        setDate(responseData.event.date); 
+        setLocation(responseData.event.location);
+        setImages(responseData.event.images[0]);
+        setClubImage(responseData.event.club_image);
+        setClubs(responseData.event.club);
+
       } catch (err) {}
     };
-    fetchUser();
-  }, [sendRequest, userId]); //dependencies of useEffect
-  console.log(loadedImage);
-
+    fetchUser();  
+  }, [sendRequest, eventID]);  //dependencies of useEffect
+console.log(loadedEventName)
   return (
     <React.Fragment>
-      <h1 className="basic-title-styles">My Account</h1>
-      <h3 className="basic-title-styles">Profile</h3>
+      {!gotAllEvents && (
+        <Container style={{ textAlign: "center" }}>
+          <LoadingSpinner />
+        </Container>
+      )}
+      {gotAllEvents && (<React.Fragment>
+      <h1 className="basic-title-styles">{loadedEventName}</h1>
+      <h3 className="basic-title-styles">About the Club</h3>
       <Card>
         <Card.Body>
           <Tabs
@@ -63,15 +83,15 @@ const Profile = () => {
             id="uncontrolled-tab-example"
             className="mb-3"
           >
-            <Tab eventKey="Profile" title="Profile">
+            <Tab eventKey="Profile" title="Club Info">
               <Row>
                 <Col md={8}>
                   <Card>
                     <Card.Header>Profile Information</Card.Header>
                     <Card.Body>
-                      <Card.Text>Full Name: </Card.Text>
+                      <Card.Text>Club Name: </Card.Text>
                       <FormControl
-                        placeholder={loadedUser}
+                        placeholder={loadedEventName}
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
@@ -79,14 +99,14 @@ const Profile = () => {
 
                       <Card.Text>Campus Email Address: </Card.Text>
                       <FormControl
-                        placeholder={loadedEmail}
+                        placeholder={loadedEventName}
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
                       />
                       <Card.Text>Student ID: </Card.Text>
                       <FormControl
-                        placeholder={loadedStudentID}
+                        placeholder={loadedEventName}
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled
@@ -96,11 +116,11 @@ const Profile = () => {
                 </Col>
                 <Col md={4}>
                   <Card>
-                    <Card.Header>Profile Picture</Card.Header>
+                    <Card.Header>Club Picture</Card.Header>
                     <Card.Body>
                       <div>Featured</div>
                       <Image
-                        src={loadedImage}
+                        src={loadedImages}
                         roundedCircle
                         style={{
                           height: "9rem",
@@ -159,8 +179,10 @@ const Profile = () => {
           </Button>{" "}
         </Card.Body>
       </Card>
+      </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
 
-export default Profile;
+export default EventInfo;

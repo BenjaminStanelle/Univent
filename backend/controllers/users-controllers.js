@@ -8,16 +8,16 @@ const Club = require("../models/club");
 const mongoose = require("mongoose");
 
 const getUserByID = async (req, res, next) => {
-  const userId= req.params.aid;
+  const userId = req.params.aid;
 
   let existingUser;
   //findOne({id: userId})
   //existing user for login
   try {
-    existingUser = await User.findOne({_id: userId});
+    existingUser = await User.findOne({ _id: userId });
   } catch (err) {
     const error = new HttpError(
-      'Finding user failed, please try again later.',
+      "Finding user failed, please try again later.",
       500
     );
     return next(error);
@@ -26,7 +26,7 @@ const getUserByID = async (req, res, next) => {
   //if existing user is not stored in the database
   if (!existingUser) {
     const error = new HttpError(
-      'Invalid credentials, this user does not exist in database.',
+      "Invalid credentials, this user does not exist in database.",
       403
     );
     return next(error);

@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import {
   Card,
   Button,
@@ -11,23 +12,64 @@ import {
   Container,
 } from "react-bootstrap";
 
+// import symbol from "../images/club_symbol.png";
+
 const ClubsList = (props) => {
+  const history = useHistory();
+  //route change for when user clicks more details button
+  const routeChange = (clubId) => () => {
+    let path = "/clubs/" + clubId;
+
+    history.push(path);
+  };
+
+  // Example POST method implementation:
+  async function postData() {
+    const createThisClub = {
+      clubname: "PhoneClub",
+      description: "check out fancy shoes here!",
+      symbol:
+        "https://images.musement.com/cover/0003/90/am-pm-experience-cover_header-289357.png?lossless=false&auto=format&fit=crop&h=245&w=355",
+      club_cat: "Recreational/Sports",
+    };
+
+    const response = await fetch("http://localhost:5000/api/clubs/", {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(createThisClub),
+    });
+    return response.json();
+  }
+
   return (
     <Row>
       <Col md={9}>
         {props.CLUBS.map((cb) => (
           <Card key={cb.id} style={{ margin: "1%", height: "10rem" }}>
-            <Card.Header style={{ fontWeight: "bold" }}>
-              {cb.clubName}
+            <Card.Header
+              style={{
+                fontWeight: "500",
+                fontSize: 20,
+                fontFamily: "Copperplate",
+              }}
+            >
+              {cb.clubname.replace("_", " ")}
             </Card.Header>
             <Card.Body style={{ margin: "0%" }}>
               <Row>
                 <Col md={2}>
                   <Card.Img
-                    src={cb.symbol}
+                    src={cb.image}
                     style={{
-                      height: "100%",
-                      width: "100%",
+                      height: "5.5rem",
+                      width: "5.5rem",
                       borderRadius: "50%",
                       margin: "auto",
                     }}
@@ -35,11 +77,15 @@ const ClubsList = (props) => {
                 </Col>
                 <Col md={8}>
                   <p style={{ textAlign: "left", paddingTop: "4.5%" }}>
-                    Display club summary here.
+                    {cb.description}
                   </p>
                 </Col>
                 <Col md={2}>
-                  <Button variant="primary" className="mt-4">
+                  <Button
+                    variant="primary"
+                    className="mt-4"
+                    onClick={routeChange(cb.id)}
+                  >
                     More Detail
                   </Button>
                 </Col>
@@ -86,6 +132,15 @@ const ClubsList = (props) => {
                 </Dropdown.Item>
               ))}
             </DropdownButton>
+
+            <Button
+              variant="outline-success"
+              style={{ margin: "5rem" }}
+              className="mt-4"
+              onClick={postData}
+            >
+              Create Club
+            </Button>
           </Container>
         </InputGroup>
       </Col>
