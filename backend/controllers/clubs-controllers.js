@@ -68,7 +68,6 @@ const getClubsByUserId = async (req, res, next) => {
     }
     console.log(userWithClubs.clubs);
     res.json({ clubs: userWithClubs.clubs.map(club => club.toObject({ getters: true }))});
-    //res.json({clubs: 'this is working EEEEEEEEEEEEEEE'});
 }
 
 const createClub = async (req, res, next) => {
