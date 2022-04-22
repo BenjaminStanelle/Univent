@@ -80,12 +80,10 @@ const createEvent = async (req, res, next) => {
     const sess = await mongoose.startSession();
     sess.startTransaction();
     await createdEvent.save({ session: sess });
-    console.log("HEEEEEEEEEEEEEEEEEEEEERREE");
     club.events.push(createdEvent);
     await club.save({ session: sess });
     await sess.commitTransaction();
   } catch (err) {
-    console.log("ERROR HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     console.log(err);
     return next(new HttpError("creating event failed, please try again"), 500);
   }
