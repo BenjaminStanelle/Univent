@@ -77,7 +77,7 @@ const ClubsList = (props) => {
                 </Col>
                 <Col md={8}>
                   <p style={{ textAlign: "left", paddingTop: "4.5%" }}>
-                    {cb.description}
+                    {cb.description.substring(0, 100) + "..."}
                   </p>
                 </Col>
                 <Col md={2}>
