@@ -12,7 +12,8 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
 
-import Forms from "./forms/Forms";
+// TOOD: Rename all to ..Page
+import FormsPage from "./forms/FormsPage";
 import Events from "./events/Events";
 import Clubs from "./Clubs/Clubs";
 import ClubInfo from "./Clubs/ClubInfo";
@@ -54,7 +55,7 @@ const App = () => {
           </Route>
         }
         <Route path="/forms">
-          <Forms />
+          <FormsPage />
         </Route>
         <Route path="/account/:userId">
           <Profile />
