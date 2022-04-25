@@ -7,9 +7,9 @@ const clubSchema = new Schema({
     clubname: { type: String, required: true },
     description: { type: String, required: true },
     image: { type: String, required: true },
-    clubCat: {type: String, required: false},
-    users: [{ type: mongoose.Types.ObjectId, required: true, ref: 'User' }],
-    events: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Event' }]
+    clubCat: {type: String, required: true},
+    users: [{ type: mongoose.Types.ObjectId, required: false, ref: 'User' }],
+    events: [{ type: mongoose.Types.ObjectId, required: false, ref: 'Event' }]
 });
 
 clubSchema.plugin(uniqueValidator);
