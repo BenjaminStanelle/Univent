@@ -43,7 +43,7 @@ const EVENTS = [
     id: "e3",
     title: "Executive Board Meeting",
     image:
-      "https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "https://images.pexels.com/photos/5668858/pexels-photo-5668858.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     date: "Friday, March 10 at 12:00PM CST",
     address: "University Center Campus",
     organizedBy: "Board at UTA",
@@ -143,7 +143,7 @@ const EventList = (props) => {
                             <Card.Img
                               variant="top"
                               src={evt.image}
-                              style={{ height: "100%", width: "100%" }}
+                              style={{ height: "15rem", width: "100%" }}
                             />
                             <Card.Body>
                               <Card.Title>{evt.title}</Card.Title>

@@ -95,28 +95,25 @@ const ClubsList = (props) => {
         ))}
       </Col>
       <Col md={3}>
-        <InputGroup className="mb-3" style={{ height: "13%", margin: "1%" }}>
+        <InputGroup className="mb-3" style={{ height: "1%", margin: "1%" }}>
           <FormControl
             placeholder="Search Clubs"
             aria-label="Search Clubs"
             aria-describedby="basic-addon2"
-            style={{ height: "60%", width: "70%", margin: "1%" }}
+            style={{ height: "3rem", width: "80%" }}
           />
 
-          <Button
-            type="submit"
-            style={{ height: "60%", width: "25%", margin: "1%" }}
-          >
-            SEARCH
-          </Button>
           <Container
             style={{
-              height: "13%",
-              margin: "1%",
-              marginTop: "5%",
-              padding: "1%",
+              height: "1%",
             }}
           >
+            <Button
+              type="submit"
+              style={{ height: "2.5rem", width: "7rem", marginLeft: "3.5rem" }}
+            >
+              SEARCH
+            </Button>
             <h5>Category</h5>
             <DropdownButton
               variant="outline-secondary"
@@ -135,7 +132,7 @@ const ClubsList = (props) => {
 
             <Button
               variant="outline-success"
-              style={{ margin: "5rem" }}
+              style={{ margin: "3rem" }}
               className="mt-4"
               onClick={routeChange("newClub")}
             >

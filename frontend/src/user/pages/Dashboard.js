@@ -38,23 +38,29 @@ const FEATURED_CLUBS = [
   {
     clubName: "Volleyball Association",
     id: "c1",
-    image: img1,
+    image:
+      "https://images.pexels.com/photos/3067870/pexels-photo-3067870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "We play volleyball.",
-    symbol: img2,
+    symbol:
+      "https://images.pexels.com/photos/3067870/pexels-photo-3067870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     clubName: "Accounting Society",
     id: "c2",
-    image: event_img2,
+    image:
+      "https://images.pexels.com/photos/210990/pexels-photo-210990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Whats new in counting things...",
-    symbol: img2,
+    symbol:
+      "https://images.pexels.com/photos/210990/pexels-photo-210990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     clubName: "Aero Mavericks",
     id: "c3",
-    image: event_img1,
+    image:
+      "https://images.pexels.com/photos/586059/pexels-photo-586059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "We are aerospace engineering student organization",
-    symbol: img2,
+    symbol:
+      "https://images.pexels.com/photos/586059/pexels-photo-586059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
 ];
 
@@ -79,7 +85,7 @@ const EVENTS = [
     id: "e3",
     title: "Executive Board Meeting",
     image:
-      "https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "https://images.pexels.com/photos/5668858/pexels-photo-5668858.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     date: "Friday, March 10 at 12:00PM CST",
     address: "University Center Campus",
     organizedBy: "Board at UTA",
@@ -151,7 +157,7 @@ const Dashboard = () => {
                   <Card.Img
                     variant="top"
                     src={evt.image}
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: "20rem", width: "100%" }}
                   />
                   <Card.Body>
                     <Card.Title>{evt.title}</Card.Title>
