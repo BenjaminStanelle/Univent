@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../shared/hooks/http-hook";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { Row, Col, Card, Button, Container } from "react-bootstrap";
 
 const ClubInfo = () => {
+  const history = useHistory();
+  //route change for when user clicks more details button
+
+  const routeChange = (clubId) => () => {
+    let path = "/events/newEvent/" + clubId;
+
+    history.push(path);
+  };
+
   /*use state is a hook that allows you to have state variables in functional components.
   Allows us to register state which then is managed inside of a component, when state is changed, 
   the component re-renders*/
@@ -122,6 +131,13 @@ const ClubInfo = () => {
                 <br />
               </Card.Text>
             </Card.Body>
+            <Button
+              variant="info"
+              className="mt-4"
+              onClick={routeChange(clubID)}
+            >
+              Create Event
+            </Button>
           </Card>
           <h2 className="basic-title-styles">Public Events</h2>
           <Container

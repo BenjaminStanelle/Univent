@@ -137,7 +137,7 @@ const ClubsList = (props) => {
               variant="outline-success"
               style={{ margin: "5rem" }}
               className="mt-4"
-              onClick={postData}
+              onClick={routeChange("newClub")}
             >
               Create Club
             </Button>

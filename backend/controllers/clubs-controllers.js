@@ -89,17 +89,30 @@ const createClub = async (req, res, next) => {
     console.log(errors);
     return new HttpError("invalid inputs passed, please check your data.", 422);
   }
-  const { clubname, description, symbol, club_cat } = req.body;
+  /*
+    clubname: formState.inputs.clubname.value,
+      description: formState.inputs.description.value,
+      image: formState.inputs.image.value,
+      club_cat
+      
+      
+      const clubSchema = new Schema({
+    clubname: { type: String, required: true },
+    description: { type: String, required: true },
+    image: { type: String, required: true },
+    clubCat: {type: String, required: true},
+    users: [{ type: mongoose.Types.ObjectId, required: false, ref: 'User' }],
+    events: [{ type: mongoose.Types.ObjectId, required: false, ref: 'Event' }]
+});
+*/
+  const { clubname, description, image, club_cat } = req.body;
   const createdClub = new Club({
     clubname,
     description,
-    symbol,
-    club_cat,
-    image:
-      "https://images.musement.com/cover/0003/90/am-pm-experience-cover_header-289357.png?lossless=false&auto=format&fit=crop&h=245&w=355",
-    students: [],
-    admin: [],
-    events: [],
+    image,
+    clubCat: club_cat,
+    users: [],
+    events: []
   });
 
   try {

@@ -17,7 +17,9 @@ import FormsPage from "./forms/FormsPage";
 import Events from "./events/Events";
 import Clubs from "./Clubs/Clubs";
 import ClubInfo from "./Clubs/ClubInfo";
+import NewClub from "./Clubs/NewClub";
 import EventInfo from "./events/EventInfo";
+import NewEvent from "./events/NewEvent";
 import Profile from "./Profile/Profile";
 // import Dashboard from "./dashboard/pages/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -49,6 +51,9 @@ const App = () => {
         <Route path="/events" exact>
           <Events />
         </Route>
+        <Route path="/events/newEvent/:cludId">
+          <NewEvent />
+        </Route>
         {
           <Route path="/events/:eventId">
             <EventInfo />
@@ -60,9 +65,16 @@ const App = () => {
         <Route path="/account/:userId">
           <Profile />
         </Route>
+        <Route path="/clubs" exact>
+          <NewClub />
+        </Route>
+        <Route path="/clubs/newClub">
+          <NewClub />
+        </Route>
         <Route path="/clubs/:clubId">
           <ClubInfo />
         </Route>
+      
         <Redirect to="/" />
       </Switch>
     );
