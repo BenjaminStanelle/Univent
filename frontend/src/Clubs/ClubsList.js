@@ -24,29 +24,29 @@ const ClubsList = (props) => {
   };
 
   // Example POST method implementation:
-  async function postData() {
-    const createThisClub = {
-      clubname: "PhoneClub",
-      description: "check out fancy shoes here!",
-      symbol:
-        "https://images.musement.com/cover/0003/90/am-pm-experience-cover_header-289357.png?lossless=false&auto=format&fit=crop&h=245&w=355",
-      club_cat: "Recreational/Sports",
-    };
+  // async function postData() {
+  //   const createThisClub = {
+  //     clubname: "PhoneClub",
+  //     description: "check out fancy shoes here!",
+  //     symbol:
+  //       "https://images.musement.com/cover/0003/90/am-pm-experience-cover_header-289357.png?lossless=false&auto=format&fit=crop&h=245&w=355",
+  //     club_cat: "Recreational/Sports",
+  //   };
 
-    const response = await fetch("http://localhost:5000/api/clubs/", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(createThisClub),
-    });
-    return response.json();
-  }
+  //   const response = await fetch("http://localhost:5000/api/clubs/", {
+  //     method: "POST",
+  //     mode: "cors",
+  //     cache: "no-cache",
+  //     credentials: "same-origin",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     redirect: "follow",
+  //     referrerPolicy: "no-referrer",
+  //     body: JSON.stringify(createThisClub),
+  //   });
+  //   return response.json();
+  // }
 
   return (
     <Row>

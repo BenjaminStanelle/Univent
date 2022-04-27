@@ -32,7 +32,7 @@ const ClubInfo = () => {
 
   let gotAllData = false;
 
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { sendRequest } = useHttpClient();
   //gets dynamic user id front the URL.
   const clubID = useParams().clubId;
 
@@ -123,7 +123,12 @@ const ClubInfo = () => {
                   <Card.Title style={{ fontSize: 40 }}>{club_name}</Card.Title>
                 </Col>
                 <Col md={2} className="align-self-center">
-                  <Button variant="primary" onClick= {routeChangeContact("/forms")}>Contact</Button>
+                  <Button
+                    variant="primary"
+                    onClick={routeChangeContact("/forms")}
+                  >
+                    Contact
+                  </Button>
                 </Col>
               </Row>
               <Card.Text>

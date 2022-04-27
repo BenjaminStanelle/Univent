@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import event_img1 from "../images/event_pic1.jpeg";
 
 const EventsList = (props) => {
   // POST method implementation for creating new events:

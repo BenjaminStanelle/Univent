@@ -1,56 +1,51 @@
-import React, { useContext } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-import Input from '../shared/components/FormElements/Input';
-import Button from '../shared/components/FormElements/Button';
-import ErrorModal from '../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../shared/components/UIElements/LoadingSpinner';
-import {
-  VALIDATOR_REQUIRE,
-  VALIDATOR_MINLENGTH
-} from '../shared/util/validators';
-import { useForm } from '../shared/hooks/form-hook';
-import { useHttpClient } from '../shared/hooks/http-hook';
-import { AuthContext } from '../shared/context/auth-context';
-import './EventForm.css';
-
+import Input from "../shared/components/FormElements/Input";
+import Button from "../shared/components/FormElements/Button";
+import ErrorModal from "../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
+import { VALIDATOR_REQUIRE } from "../shared/util/validators";
+import { useForm } from "../shared/hooks/form-hook";
+import { useHttpClient } from "../shared/hooks/http-hook";
+// import { AuthContext } from "../shared/context/auth-context";
+import "./EventForm.css";
 
 const NewEvent = () => {
   const clubIDVal = String(useParams().clubId);
-  const auth = useContext(AuthContext);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  // const auth = useContext(AuthContext);
+  // const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { isLoading, error, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
-    eventname: {
-        value: '',
-        isValid: false
+      eventname: {
+        value: "",
+        isValid: false,
       },
       year: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       month: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       day: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       hour: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       location: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       image: {
-        value: '',
-        isValid: false
-      }
-
-      
+        value: "",
+        isValid: false,
+      },
     },
     false
   );
@@ -58,18 +53,16 @@ const NewEvent = () => {
   const history = useHistory();
 
   async function postData() {
-
     const createThisEvent = {
-        clubId: clubIDVal,
-        eventname: formState.inputs.eventname.value,
-        year: formState.inputs.year.value,
-        month: formState.inputs.month.value,
-        day: formState.inputs.day.value,
-        hour: formState.inputs.hour.value,
-        location: formState.inputs.location.value,
-        image: formState.inputs.image.value,
+      clubId: clubIDVal,
+      eventname: formState.inputs.eventname.value,
+      year: formState.inputs.year.value,
+      month: formState.inputs.month.value,
+      day: formState.inputs.day.value,
+      hour: formState.inputs.hour.value,
+      location: formState.inputs.location.value,
+      image: formState.inputs.image.value,
     };
-
 
     const response = await fetch("http://localhost:5000/api/events/", {
       method: "POST",
@@ -83,10 +76,9 @@ const NewEvent = () => {
       referrerPolicy: "no-referrer",
       body: JSON.stringify(createThisEvent),
     });
-    history.push('/events');
+    history.push("/events");
 
     return response.json();
-  
   }
   /*clubId: formState.inputs.clubId.value,
         eventname: formState.inputs.eventname.value,
@@ -164,7 +156,7 @@ const NewEvent = () => {
           errorText="Please enter a valid hyper link image."
           onInput={inputHandler}
         />
-        
+
         <Button type="submit" disabled={!formState.isValid}>
           CREATE EVENT
         </Button>

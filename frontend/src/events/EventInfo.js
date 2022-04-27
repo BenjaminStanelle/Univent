@@ -3,20 +3,7 @@ import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../shared/hooks/http-hook";
 import { useParams, useHistory } from "react-router-dom";
-import {
-  Row,
-  Col,
-  Card,
-  Tabs,
-  Tab,
-  FormControl,
-  Form,
-  Button,
-  Accordion,
-  Carousel,
-  Container,
-} from "react-bootstrap";
-import Image from "react-bootstrap/Image";
+import { Row, Col, Card, Button, Container } from "react-bootstrap";
 
 const EventInfo = () => {
   const history = useHistory();
@@ -39,7 +26,7 @@ const EventInfo = () => {
 
   let gotAllData = false;
 
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { sendRequest } = useHttpClient();
   //gets dynamic user id front the URL.
   const eventID = useParams().eventId;
 
@@ -71,10 +58,9 @@ const EventInfo = () => {
 
   let club_name = "";
   if (setClubs.length > 0 && gotAllEvents && loadedClubs) {
-    console.log("->date UNDEF", loadedDate);
     gotAllData = true;
     if (loadedClubs.length > 0) {
-      club_name = loadedClubs[0].replace("_", " ");
+      club_name = loadedClubs.replace("_", " ");
     }
   }
 
@@ -116,7 +102,12 @@ const EventInfo = () => {
                   </Card.Title>
                 </Col>
                 <Col md={2} className="align-self-center">
-                  <Button variant="primary" onClick= {routeChangeContact("/forms")}>RSVP</Button>
+                  <Button
+                    variant="primary"
+                    onClick={routeChangeContact("/forms")}
+                  >
+                    RSVP
+                  </Button>
                 </Col>
               </Row>
               <h5 className="basic-title-styles">Date and Time</h5>
@@ -135,9 +126,6 @@ const EventInfo = () => {
             </Card.Body>
           </Card>
 
-          <h2 className="basic-title-styles">
-            Other events hosted by this club:
-          </h2>
           <Container
             style={{
               alignItems: "center",

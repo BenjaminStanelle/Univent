@@ -1,42 +1,40 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from "react";
+import { useHistory } from "react-router-dom";
 
-import Input from '../shared/components/FormElements/Input';
-import Button from '../shared/components/FormElements/Button';
-import ErrorModal from '../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../shared/components/UIElements/LoadingSpinner';
+import Input from "../shared/components/FormElements/Input";
+import Button from "../shared/components/FormElements/Button";
+import ErrorModal from "../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 import {
   VALIDATOR_REQUIRE,
-  VALIDATOR_MINLENGTH
-} from '../shared/util/validators';
-import { useForm } from '../shared/hooks/form-hook';
-import { useHttpClient } from '../shared/hooks/http-hook';
-import { AuthContext } from '../shared/context/auth-context';
-import './ClubForm.css';
-
+  VALIDATOR_MINLENGTH,
+} from "../shared/util/validators";
+import { useForm } from "../shared/hooks/form-hook";
+import { useHttpClient } from "../shared/hooks/http-hook";
+// import { AuthContext } from "../shared/context/auth-context";
+import "./ClubForm.css";
 
 const NewClub = () => {
-  const auth = useContext(AuthContext);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  // const auth = useContext(AuthContext);
+  const { isLoading, error, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
       clubname: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       description: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       image: {
-        value: '',
-        isValid: false
+        value: "",
+        isValid: false,
       },
       clubCat: {
-        value: '',
-        isValid: false
-      }
-      
+        value: "",
+        isValid: false,
+      },
     },
     false
   );
@@ -44,12 +42,11 @@ const NewClub = () => {
   const history = useHistory();
 
   async function postData() {
-  
     const createThisClub = {
       clubname: formState.inputs.clubname.value,
       description: formState.inputs.description.value,
       image: formState.inputs.image.value,
-      club_cat: formState.inputs.clubCat.value
+      club_cat: formState.inputs.clubCat.value,
     };
 
     const response = await fetch("http://localhost:5000/api/clubs/", {
@@ -64,12 +61,11 @@ const NewClub = () => {
       referrerPolicy: "no-referrer",
       body: JSON.stringify(createThisClub),
     });
-    history.push('/clubs');
+    history.push("/clubs");
 
     return response.json();
-  
   }
-  
+
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
