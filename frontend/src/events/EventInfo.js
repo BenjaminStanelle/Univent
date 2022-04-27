@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import ErrorModal from "../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../shared/hooks/http-hook";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import {
   Row,
   Col,
@@ -19,6 +19,11 @@ import {
 import Image from "react-bootstrap/Image";
 
 const EventInfo = () => {
+  const history = useHistory();
+
+  const routeChangeContact = (formRoute) => () => {
+    history.push(formRoute);
+  };
   /*use state is a hook that allows you to have state variables in functional components.
   Allows us to register state which then is managed inside of a component, when state is changed, 
   the component re-renders*/
@@ -111,7 +116,7 @@ const EventInfo = () => {
                   </Card.Title>
                 </Col>
                 <Col md={2} className="align-self-center">
-                  <Button variant="primary">RSVP</Button>
+                  <Button variant="primary" onClick= {routeChangeContact("/forms")}>RSVP</Button>
                 </Col>
               </Row>
               <h5 className="basic-title-styles">Date and Time</h5>

@@ -14,6 +14,10 @@ const ClubInfo = () => {
     history.push(path);
   };
 
+  const routeChangeContact = (formRoute) => () => {
+    history.push(formRoute);
+  };
+
   /*use state is a hook that allows you to have state variables in functional components.
   Allows us to register state which then is managed inside of a component, when state is changed, 
   the component re-renders*/
@@ -119,7 +123,7 @@ const ClubInfo = () => {
                   <Card.Title style={{ fontSize: 40 }}>{club_name}</Card.Title>
                 </Col>
                 <Col md={2} className="align-self-center">
-                  <Button variant="primary">Contact</Button>
+                  <Button variant="primary" onClick= {routeChangeContact("/forms")}>Contact</Button>
                 </Col>
               </Row>
               <Card.Text>
