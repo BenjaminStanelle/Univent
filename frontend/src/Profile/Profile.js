@@ -46,11 +46,15 @@ const Profile = () => {
         setLoadedEmail(responseData.existingUser.email); //loading into loadedEmail
         setLoadedImage(responseData.existingUser.image);
         setLoadedStudentID(responseData.existingUser.studentID);
+        if (!loadedImage) {
+          setLoadedImage(
+            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          );
+        }
       } catch (err) {}
     };
     fetchUser();
   }, [sendRequest, userId]); //dependencies of useEffect
-  console.log(loadedImage);
 
   return (
     <React.Fragment>
