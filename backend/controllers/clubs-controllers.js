@@ -15,28 +15,34 @@ const getAllClubs = async (req, res, next) => {
   if (!clubs) {
     return next(new HttpError("can't find any clubs.", 404));
   }
+
   res.json({ clubs: clubs.map((club) => club.toObject({ getters: true })) });
 };
 
-const getClubByName = async (req, res, next) => {
-  /**
-   * takes a club name from the URL and returns the database entry for that club
-   */
-  const clubname = req.params.cn;
-  let clubs;
+const getClubById = async (req, res, next) => {
+  const clubId = req.params.cn;
 
-  // find the club by clubname
+  let club;
+
   try {
-    clubs = await Club.find({ clubname: clubname }).exec();
+    club = await Club.findById(clubId);
   } catch (err) {
-    return next(new HttpError("something went wrong", 500));
+    const error = new HttpError(
+      "Something went wrong, could not find a club.",
+      500
+    );
+    return next(error);
   }
 
-  if (!clubs) {
-    return next(new HttpError("can't find club with that name", 404));
+  if (!club) {
+    const error = new HttpError(
+      "Could not find club for the provided id.",
+      404
+    );
+    return next(error);
   }
 
-  res.json({ clubs: clubs.map((club) => club.toObject({ getters: true })) });
+  res.json({ club: club.toObject({ getters: true }) });
 };
 
 const getClubsByUserId = async (req, res, next) => {
@@ -83,16 +89,29 @@ const createClub = async (req, res, next) => {
     console.log(errors);
     return new HttpError("invalid inputs passed, please check your data.", 422);
   }
-  const { clubname, description, symbol, club_cat } = req.body;
+  /*
+    clubname: formState.inputs.clubname.value,
+      description: formState.inputs.description.value,
+      image: formState.inputs.image.value,
+      club_cat
+      
+      
+      const clubSchema = new Schema({
+    clubname: { type: String, required: true },
+    description: { type: String, required: true },
+    image: { type: String, required: true },
+    clubCat: {type: String, required: true},
+    users: [{ type: mongoose.Types.ObjectId, required: false, ref: 'User' }],
+    events: [{ type: mongoose.Types.ObjectId, required: false, ref: 'Event' }]
+});
+*/
+  const { clubname, description, image, club_cat } = req.body;
   const createdClub = new Club({
     clubname,
     description,
-    symbol,
-    club_cat,
-    image:
-      "https://images.musement.com/cover/0003/90/am-pm-experience-cover_header-289357.png?lossless=false&auto=format&fit=crop&h=245&w=355",
-    students: [],
-    admin: [],
+    image,
+    clubCat: club_cat,
+    users: [],
     events: [],
   });
 
@@ -139,7 +158,7 @@ const deleteClub = async (req, res, next) => {
     return next(new HttpError("something went wrong", 500));
   }
   if (!club) {
-    return next(new HttpError("Could not find place for this id", 404));
+    return next(new HttpError("Could not find club for this id", 404));
   }
   try {
     const sess = await mongoose.startSession();
@@ -158,7 +177,7 @@ const deleteClub = async (req, res, next) => {
 
 exports.getAllClubs = getAllClubs;
 exports.createClub = createClub;
-exports.getClubByName = getClubByName;
+exports.getClubById = getClubById;
 exports.getClubsByUserId = getClubsByUserId;
 exports.updateClub = updateClub;
 exports.deleteClub = deleteClub;

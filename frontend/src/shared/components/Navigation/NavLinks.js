@@ -18,7 +18,16 @@ const NavLinks = (props) => {
       </li>
       {auth.isLoggedIn && (
         <li>
-          <NavLink to="/events">EVENTS</NavLink>
+          <NavLink to="/events" exact>
+            EVENTS
+          </NavLink>
+        </li>
+      )}
+      {auth.isLoggedIn && (
+        <li>
+          <NavLink to="/clubs" exact>
+            CLUBS
+          </NavLink>
         </li>
       )}
       {auth.isLoggedIn && (
@@ -26,24 +35,10 @@ const NavLinks = (props) => {
           <NavLink to="/forms">FORMS</NavLink>
         </li>
       )}
+
       {auth.isLoggedIn && (
         <li>
-          <NavLink to="/clubs">CLUBS</NavLink>
-        </li>
-      )}
-      {/* {auth.isLoggedIn && (
-        <li>
-          <NavLink to={`/${auth.userId}/places`}>MY PLACES</NavLink>
-        </li>
-      )}
-      {auth.isLoggedIn && (
-        <li>
-          <NavLink to="/places/new">ADD PLACE</NavLink>
-        </li>
-      )} */}
-      {auth.isLoggedIn && (
-        <li>
-          <NavLink to= {`/account/${auth.userId}`}>MY PROFILE</NavLink>
+          <NavLink to={`/account/${auth.userId}`}>MY PROFILE</NavLink>
         </li>
       )}
       {!auth.isLoggedIn && (

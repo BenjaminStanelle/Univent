@@ -18,29 +18,43 @@ import Image from "react-bootstrap/Image";
 // import profile_pic from "../images/club_symbol.png";
 
 const Profile = () => {
+  /*use state is a hook that allows you to have state variables in functional components.
+  Allows us to register state which then is managed inside of a component, when state is changed, 
+  the component re-renders*/
   const [loadedUser, setLoadedUser] = useState();
   const [loadedEmail, setLoadedEmail] = useState();
-  // const [loadedStudentID, setLoadedStudentID] = useState();
   const [loadedImage, setLoadedImage] = useState();
+  const [loadedStudentID, setLoadedStudentID] = useState();
 
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  //
+  const { sendRequest } = useHttpClient();
+  //gets dynamic user id front the URL.
   const userId = useParams().userId;
 
+  //use affect runs for one render, thereafter runs if the dependencies sendRequest, or userID are changed.
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        //await returns a promise object, waiting until the promise accepts or rejects.
         const responseData = await sendRequest(
-          `http://localhost:5000/api/users/account/${userId}`
+          `http://localhost:5000/api/users/account/${userId}` /*Sends get request(by default), 
+                                                              to backend with a dynamic user id.*/
+          //send request function fron http-hook.js
         );
+        //Loading response data into states
         setLoadedUser(responseData.existingUser.name);
-        setLoadedEmail(responseData.existingUser.email);
+        setLoadedEmail(responseData.existingUser.email); //loading into loadedEmail
         setLoadedImage(responseData.existingUser.image);
-        //setLoadedStudentID(responseData.existingUser.studentID);
+        setLoadedStudentID(responseData.existingUser.studentID);
+        // if (!loadedImage) {
+        //   setLoadedImage(
+        //     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+        //   );
+        // }
       } catch (err) {}
     };
     fetchUser();
-  }, [sendRequest, userId]);
-  console.log(loadedImage);
+  }, [sendRequest, userId]); //dependencies of useEffect
 
   return (
     <React.Fragment>
@@ -76,7 +90,7 @@ const Profile = () => {
                       />
                       <Card.Text>Student ID: </Card.Text>
                       <FormControl
-                        placeholder="I STILL NEED STUDENT ID"
+                        placeholder={loadedStudentID}
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                         disabled

@@ -4,25 +4,25 @@
     {
       "clubName": "Volleyball Association",
       "id": "c1",
-      "image": "https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "image": "https://images.pexels.com/photos/3067870/pexels-photo-3067870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "description": "We play volleyball.",
-      "symbol": "https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "symbol": "https://images.pexels.com/photos/3067870/pexels-photo-3067870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "category": "Recreational/Sports"
     },
     {
       "clubName": "Accounting Society",
       "id": "c2",
-      "image": "https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "image": "https://images.pexels.com/photos/210990/pexels-photo-210990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "description": "Whats new in counting things...",
-      "symbol": "https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "symbol": "https://images.pexels.com/photos/6863182/pexels-photo-6863182.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
       "category": "Academic Associations"
     },
     {
       "clubName": "Aero Mavericks",
       "id": "c3",
-      "image": "https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "image": "https://images.pexels.com/photos/586059/pexels-photo-586059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "description": "We are aerospace engineering student organization",
-      "symbol": "https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "symbol": "https://images.pexels.com/photos/586059/pexels-photo-586059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "category": "Academic Associations"
     }
     ],

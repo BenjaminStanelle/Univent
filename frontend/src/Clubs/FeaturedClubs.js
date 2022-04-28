@@ -11,7 +11,7 @@ const FeaturedClubs = (props) => {
             variant="top"
             src={c.image}
             alt=""
-            style={{ height: "100%", width: "100%" }}
+            style={{ height: "20rem", width: "100%" }}
           />
           <Card.Body>
             <Card.Title>{c.clubName}</Card.Title>

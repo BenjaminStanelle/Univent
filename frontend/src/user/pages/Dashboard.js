@@ -42,23 +42,29 @@ const FEATURED_CLUBS = [
   {
     clubName: "Volleyball Association",
     id: "c1",
-    image: img1,
+    image:
+      "https://images.pexels.com/photos/3067870/pexels-photo-3067870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "We play volleyball.",
-    symbol: img2,
+    symbol:
+      "https://images.pexels.com/photos/3067870/pexels-photo-3067870.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     clubName: "Accounting Society",
     id: "c2",
-    image: event_img2,
+    image:
+      "https://images.pexels.com/photos/210990/pexels-photo-210990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "Whats new in counting things...",
-    symbol: img2,
+    symbol:
+      "https://images.pexels.com/photos/210990/pexels-photo-210990.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     clubName: "Aero Mavericks",
     id: "c3",
-    image: event_img1,
+    image:
+      "https://images.pexels.com/photos/586059/pexels-photo-586059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     description: "We are aerospace engineering student organization",
-    symbol: img2,
+    symbol:
+      "https://images.pexels.com/photos/586059/pexels-photo-586059.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
 ];
 
@@ -83,7 +89,7 @@ const EVENTS = [
     id: "e3",
     title: "Executive Board Meeting",
     image:
-      "https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "https://images.pexels.com/photos/5668858/pexels-photo-5668858.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     date: "Friday, March 10 at 12:00PM CST",
     address: "University Center Campus",
     organizedBy: "Board at UTA",
@@ -91,7 +97,7 @@ const EVENTS = [
 ];
 
 const Dashboard = () => {
-  const history = useHistory()
+  const history = useHistory();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   // const [loadedUsers, setLoadedUsers] = useState();
 
@@ -113,21 +119,20 @@ const Dashboard = () => {
   // }, [sendRequest]);
 
   const fetchSearchResult = (key) => {
-
-    fetch('http://localhost:5000/api/search', {
-      method: 'POST', // or 'PUT'
+    fetch("http://localhost:5000/api/search", {
+      method: "POST", // or 'PUT'
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ keyword: key }),
     })
-      .then(response => response.json())
-      .then(data => {
-        setClub(data.clubs)
-        setEvents(data.events)
+      .then((response) => response.json())
+      .then((data) => {
+        setClub(data.clubs);
+        setEvents(data.events);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   };
 
@@ -146,7 +151,7 @@ const Dashboard = () => {
         <form className=" d-flex col-6">
           <input
             onChange={(e) => {
-              fetchSearchResult(e.target.value)
+              fetchSearchResult(e.target.value);
             }}
             className="form-control mr-5"
             type="search"
@@ -162,112 +167,114 @@ const Dashboard = () => {
         <Col md={9}>
           {clubs.length == 0 ? <div></div> : <h3>Clubs</h3>}
           {clubs.map((item, index) => {
-            return <Card key={item._id} style={{ margin: "1%", height: "10rem" }}>
-              <Card.Header
-                style={{
-                  fontWeight: "500",
-                  fontSize: 20,
-                  fontFamily: "Copperplate",
-                }}
-              >
-                {item.clubname.replace("_", " ")}
-              </Card.Header>
-              <Card.Body style={{ margin: "0%" }}>
-                <Row>
-                  <Col md={2}>
-                    <Card.Img
-                      src={item.image}
-                      style={{
-                        height: "5.5rem",
-                        width: "5.5rem",
-                        borderRadius: "50%",
-                        margin: "auto",
-                      }}
-                    />
-                  </Col>
-                  <Col md={8}>
-                    <p style={{ textAlign: "left", paddingTop: "4.5%", maxLines: 2 }}>
-                      {item.description}
-                    </p>
-                  </Col>
-                  <Col md={2}>
-                    <Button
-                      variant="primary"
-                      className="mt-4"
-                      onClick={() => {
-                        let path = "/clubs/" + item._id;
-                        history.push(path, item);
-                      }   }
-                    >
-                      More Detail
-                    </Button>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-          })
-
-          }
+            return (
+              <Card key={item._id} style={{ margin: "1%", height: "10rem" }}>
+                <Card.Header
+                  style={{
+                    fontWeight: "500",
+                    fontSize: 20,
+                    fontFamily: "Copperplate",
+                  }}
+                >
+                  {item.clubname.replace("_", " ")}
+                </Card.Header>
+                <Card.Body style={{ margin: "0%" }}>
+                  <Row>
+                    <Col md={2}>
+                      <Card.Img
+                        src={item.image}
+                        style={{
+                          height: "5.5rem",
+                          width: "5.5rem",
+                          borderRadius: "50%",
+                          margin: "auto",
+                        }}
+                      />
+                    </Col>
+                    <Col md={8}>
+                      <p
+                        style={{
+                          textAlign: "left",
+                          paddingTop: "4.5%",
+                          maxLines: 2,
+                        }}
+                      >
+                        {item.description}
+                      </p>
+                    </Col>
+                    <Col md={2}>
+                      <Button
+                        variant="primary"
+                        className="mt-4"
+                        onClick={() => {
+                          let path = "/clubs/" + item._id;
+                          history.push(path, item);
+                        }}
+                      >
+                        More Detail
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            );
+          })}
         </Col>
       </div>
 
       <div className="d-flex justify-content-lg-center">
-
         <Col md={9}>
           {events.length == 0 ? <div></div> : <h3>Events</h3>}
 
           {events.map((item, index) => {
-            return <Card key={item._id} style={{ margin: "1%", height: "10rem" }}>
-              <Card.Header
-                style={{
-                  fontWeight: "500",
-                  fontSize: 20,
-                  fontFamily: "Copperplate",
-                }}
-              >
-                {item.eventname}
-              </Card.Header>
-              <Card.Body style={{ margin: "0%" }}>
-                <Row>
-                  <Col md={2}>
-                    <Card.Img
-                      src={item.images[0]}
-                      style={{
-                        height: "5.5rem",
-                        width: "5.5rem",
-                        borderRadius: "50%",
-                        margin: "auto",
-                      }}
-                    />
-                  </Col>
-                  <Col md={8}>
-                    <p style={{ textAlign: "left", paddingTop: "4.5%" }}>
-                      {item.time}
-                    </p>
-                  </Col>
-                  <Col md={2}>
-                    <Button
-                      variant="primary"
-                      className="mt-4"
-                      onClick={() => {
-                        let path = "/events/" + item._id;
+            return (
+              <Card key={item._id} style={{ margin: "1%", height: "10rem" }}>
+                <Card.Header
+                  style={{
+                    fontWeight: "500",
+                    fontSize: 20,
+                    fontFamily: "Copperplate",
+                  }}
+                >
+                  {item.eventname}
+                </Card.Header>
+                <Card.Body style={{ margin: "0%" }}>
+                  <Row>
+                    <Col md={2}>
+                      <Card.Img
+                        src={item.images[0]}
+                        style={{
+                          height: "5.5rem",
+                          width: "5.5rem",
+                          borderRadius: "50%",
+                          margin: "auto",
+                        }}
+                      />
+                    </Col>
+                    <Col md={8}>
+                      <p style={{ textAlign: "left", paddingTop: "4.5%" }}>
+                        {item.time}
+                      </p>
+                    </Col>
+                    <Col md={2}>
+                      <Button
+                        variant="primary"
+                        className="mt-4"
+                        onClick={() => {
+                          let path = "/events/" + item._id;
 
-                        history.push(path, item);
-                      }
-
-                      }
-                    >
-                      More Detail
-                    </Button>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-          })
-
-          }
+                          history.push(path, item);
+                        }}
+                      >
+                        More Detail
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            );
+          })}
         </Col>
-
       </div>
       <h4 className="featured-text">Check out Featured Clubs</h4>
       <Carousel>
@@ -287,7 +294,7 @@ const Dashboard = () => {
                   <Card.Img
                     variant="top"
                     src={evt.image}
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: "20rem", width: "100%" }}
                   />
                   <Card.Body>
                     <Card.Title>{evt.title}</Card.Title>

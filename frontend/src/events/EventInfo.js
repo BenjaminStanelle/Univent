@@ -1,47 +1,142 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import {
-  Col,
-  Card,
-  Button,
-} from "react-bootstrap";
-
+import React, { useEffect, useState } from "react";
+// import ErrorModal from "../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
+import { useHttpClient } from "../shared/hooks/http-hook";
+import { useParams, useHistory } from "react-router-dom";
+import { Row, Col, Card, Button, Container } from "react-bootstrap";
 
 const EventInfo = () => {
- /*use state is a hook that allows you to have state variables in functional components.
+  const history = useHistory();
+
+  const routeChangeContact = (formRoute) => () => {
+    history.push(formRoute);
+  };
+  /*use state is a hook that allows you to have state variables in functional components.
   Allows us to register state which then is managed inside of a component, when state is changed, 
   the component re-renders*/
-  const history = useHistory()
+  const [gotAllEvents, setGotAllEvents] = useState(false);
+
+  const [loadedEventName, setEventName] = useState();
+  const [loadedTime, setTime] = useState();
+  const [loadedDate, setDate] = useState();
+  const [loadedLocation, setLocation] = useState();
+  const [loadedImages, setImages] = useState();
+  const [loadedClubImage, setClubImage] = useState();
+  const [loadedClubs, setClubs] = useState();
+
+  let gotAllData = false;
+
+  const { sendRequest } = useHttpClient();
+  //gets dynamic user id front the URL.
+  const eventID = useParams().eventId;
+
+  //use affect runs for one render, thereafter runs if the dependencies sendRequest, or userID are changed.
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        //await returns a promise object, waiting until the promise accepts or rejects.
+        const responseData = await sendRequest(
+          `http://localhost:5000/api/events/${eventID}` /*Sends get request(by default), 
+                                                              to backend with a dynamic club id.*/
+          //send request function fron http-hook.js
+        );
+        //Loading response data into states
+        setGotAllEvents(true);
+
+        setEventName(responseData.event.eventname);
+        setTime(responseData.event.time);
+        setDate(responseData.event.date);
+        setLocation(responseData.event.location);
+        setImages(responseData.event.images[0]);
+        setClubImage(responseData.event.club_image);
+        setClubs(responseData.event.club);
+      } catch (err) {}
+    };
+    fetchUser();
+  }, [sendRequest, eventID]); //dependencies of useEffect
+  // console.log(loadedEventName);
+
+  let club_name = "";
+  if (setClubs.length > 0 && gotAllEvents && loadedClubs) {
+    gotAllData = true;
+    if (loadedClubs.length > 0) {
+      club_name = loadedClubs.replace("_", " ");
+    }
+  }
 
   return (
+    <React.Fragment>
+      {!gotAllData && (
+        <Container style={{ textAlign: "center" }}>
+          <LoadingSpinner />
+        </Container>
+      )}
+      {gotAllData && (
         <React.Fragment>
-            {console.log(history.location.state)}
-          <h3 className="basic-title-styles">About Event</h3>
+          {/* <h1 className="basic-title-styles">{loadedEventName}</h1> */}
+          <h2 className="basic-title-styles">About the Event</h2>
 
-          <Card>
+          <Card
+            style={{
+              // alignItems: "center",
+              alignContent: "center",
+              alignSelf: "center",
+              margin: "3%",
+            }}
+          >
             <Card.Body>
-              <Col>
-                <Card.Img
-                  src={history.location.state.images[0]}
-                  style={{
-                    height: "5.5rem",
-                    width: "5.5rem",
-                    borderRadius: "50%",
-                    margin: "2rem",
-                  }}
-                />
-                <Card.Title>Event: {history.location.state.eventname}</Card.Title>
-                <Card.Title>Club: {history.location.state.club.split("_").join(" ")}</Card.Title>
-              </Col>
-              <Button variant="primary">Contact</Button>
-              <Card.Body>
-              <p> Location: {history.location.state.location}  </p>
-              <p> Time: {history.location.state.time}  </p>
-              </Card.Body>
+              <Row>
+                <Col md={2}>
+                  <Card.Img
+                    src={loadedImages}
+                    style={{
+                      height: "7rem",
+                      width: "7rem",
+                      margin: "1rem",
+                    }}
+                  />
+                </Col>
+                <Col md={8} className="align-self-center">
+                  <Card.Title style={{ fontSize: 30 }}>
+                    {loadedEventName}
+                  </Card.Title>
+                </Col>
+                <Col md={2} className="align-self-center">
+                  <Button
+                    variant="primary"
+                    onClick={routeChangeContact("/forms")}
+                  >
+                    RSVP
+                  </Button>
+                </Col>
+              </Row>
+              <h5 className="basic-title-styles">Date and Time</h5>
+              <p style={{ marginLeft: "2rem" }}>{loadedTime}</p>
+              <h5 className="basic-title-styles">Location</h5>
+              <p style={{ marginLeft: "2rem" }}>{loadedLocation}</p>
+              <h5 className="basic-title-styles">Description</h5>
+              <Card.Text style={{ marginLeft: "2rem" }}>
+                Welcome!
+                <br />
+                A time to celebrate the 2022 graduates before they leave!
+                <br />
+              </Card.Text>
+              <h5 className="basic-title-styles">Host Organization</h5>
+              <p style={{ marginLeft: "2rem" }}>{club_name}</p>
             </Card.Body>
           </Card>
+
+          <Container
+            style={{
+              alignItems: "center",
+              alignContent: "center",
+              alignSelf: "center",
+              margin: "3%",
+            }}
+          ></Container>
         </React.Fragment>
-      
+      )}
+    </React.Fragment>
   );
 };
 
