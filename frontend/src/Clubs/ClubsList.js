@@ -191,28 +191,13 @@ const ClubsList = (props) => {
         </Col>
         <Col md={3}>
           <InputGroup className="mb-3" style={{ height: "1%", margin: "1%" }}>
-            <FormControl
-              placeholder="Search Clubs"
-              aria-label="Search Clubs"
-              aria-describedby="basic-addon2"
-              style={{ height: "3rem", width: "80%" }}
-            />
 
             <Container
               style={{
                 height: "1%",
               }}
             >
-              <Button
-                type="submit"
-                style={{
-                  height: "2.5rem",
-                  width: "7rem",
-                  marginLeft: "3.5rem",
-                }}
-              >
-                SEARCH
-              </Button>
+
               <h5>Category</h5>
               <DropdownButton
                 variant="outline-secondary"
