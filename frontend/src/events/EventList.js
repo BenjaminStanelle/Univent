@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // import Card from "../shared/components/UIElements/Card";
 // import Button from "../shared/components/FormElements/Button";
@@ -17,6 +17,7 @@ import {
   CardGroup,
   Button,
 } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 const EVENTS = [
   {
@@ -46,7 +47,32 @@ const EVENTS = [
   },
 ];
 
-const EventList = (props) => {
+
+const EventList = () => {
+
+  const history = useHistory()
+  const [events, setEvents] = useState([]);
+  const [key, setKey] = useState("");
+
+  const searchEvents = (keywords) => {
+    fetch('http://localhost:5000/api/search', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ keyword: keywords }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.events)
+        setEvents(data.events)
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
+
   if (EVENTS.length === 0) {
     return (
       <div className="place-list center">
@@ -57,12 +83,14 @@ const EventList = (props) => {
       </div>
     );
   }
+
   //goes through every place we have and renders a <PlaceItem> for every place
   return (
     <React.Fragment>
       <div>
         <h2 className="basic-title-styles">EVENTS</h2>
         <Row>
+         
           <Col md={3}>
             <InputGroup
               className="mb-3"
@@ -72,25 +100,64 @@ const EventList = (props) => {
                 placeholder="Search Events"
                 aria-label="Search Events"
                 aria-describedby="basic-addon2"
+                onChange={(e) => { setKey(e.target.value) }}
                 style={{ height: "100%", width: "70%", margin: "1%" }}
               />
 
               <Button
                 type="submit"
+                onClick={() => { searchEvents(key) }}
                 style={{ height: "100%", width: "25%", margin: "1%" }}
               >
                 SEARCH
               </Button>
+
+              <div className="d-flex justify-content-lg-center">
+
+                <Col md={9}>
+                  {events.length == 0 ? <div></div> : <h3>Events</h3>}
+
+                  {events.map((item, index) => {
+                    return <Card key={item._id} style={{ margin: "1%", paddingRight: "50px", paddingLeft: "30px" }}>
+                      <Card.Body>
+                      <Row>
+                           <p style={{ fontFamily: "Copperplate" }}>
+                             {console.log(item)}
+                              {item.eventname}
+                            </p>
+                            
+                            <Button
+                            style={{marginLeft: "30px", marginRight:"10px"}}
+                              variant="primary"
+                              onClick={() => {
+                                let path = "/events/" + item._id;
+
+                                history.push(path, item);
+                              }}> Detail </Button>
+                        </Row>
+                      </Card.Body>
+                    </Card>
+                  })
+
+                  }
+                </Col>
+
+              </div>
+
               <div
                 key={"default-radio"}
                 className="mb-3"
                 style={{ margin: "1rem" }}
               >
+
+
                 <Form.Check type="radio" id="weekend" label="Weekend" />
                 <Form.Check type="radio" id="tomorrow" label="Tomorrow" />
               </div>
             </InputGroup>
           </Col>
+
+
           <Col md={9}>
             <Carousel>
               {EVENTS.map((ev) => (

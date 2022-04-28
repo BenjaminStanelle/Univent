@@ -115,20 +115,20 @@ const Dashboard = () => {
   const fetchSearchResult = (key) => {
 
     fetch('http://localhost:5000/api/search', {
-  method: 'POST', // or 'PUT'
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({keyword: key}),
-})
-.then(response => response.json())
-.then(data => {
-  setClub(data.clubs)
-  setEvents(data.events)
-})
-.catch((error) => {
-  console.error('Error:', error);
-});
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ keyword: key }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        setClub(data.clubs)
+        setEvents(data.events)
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   return (
@@ -159,120 +159,115 @@ const Dashboard = () => {
       </div>
 
       <div className="d-flex justify-content-lg-center">
-      <Col md={9}>
-      {clubs.length == 0 ? <div></div> :  <h3>Clubs</h3>}
-        {clubs.map((item, index) => {
-          return  <Card key={item._id} style={{ margin: "1%", height: "10rem" }}>
-          <Card.Header
-            style={{
-              fontWeight: "500",
-              fontSize: 20,
-              fontFamily: "Copperplate",
-            }}
-          >
-            {item.clubname.replace("_", " ")}
-          </Card.Header>
-          <Card.Body style={{ margin: "0%" }}>
-            <Row>
-              <Col md={2}>
-                <Card.Img
-                  src={item.image}
-                  style={{
-                    height: "5.5rem",
-                    width: "5.5rem",
-                    borderRadius: "50%",
-                    margin: "auto",
-                  }}
-                />
-              </Col>
-              <Col md={8}>
-                <p style={{ textAlign: "left", paddingTop: "4.5%" }}>
-                  {item.time}
-                </p>
-              </Col>
-              <Col md={2}>
-                <Button
-                  variant="primary"
-                  className="mt-4"
-                  onClick={() => {
-                    let path = "/clubs/" + item._id;
+        <Col md={9}>
+          {clubs.length == 0 ? <div></div> : <h3>Clubs</h3>}
+          {clubs.map((item, index) => {
+            return <Card key={item._id} style={{ margin: "1%", height: "10rem" }}>
+              <Card.Header
+                style={{
+                  fontWeight: "500",
+                  fontSize: 20,
+                  fontFamily: "Copperplate",
+                }}
+              >
+                {item.clubname.replace("_", " ")}
+              </Card.Header>
+              <Card.Body style={{ margin: "0%" }}>
+                <Row>
+                  <Col md={2}>
+                    <Card.Img
+                      src={item.image}
+                      style={{
+                        height: "5.5rem",
+                        width: "5.5rem",
+                        borderRadius: "50%",
+                        margin: "auto",
+                      }}
+                    />
+                  </Col>
+                  <Col md={8}>
+                    <p style={{ textAlign: "left", paddingTop: "4.5%", maxLines: 2 }}>
+                      {item.description}
+                    </p>
+                  </Col>
+                  <Col md={2}>
+                    <Button
+                      variant="primary"
+                      className="mt-4"
+                      onClick={() => {
+                        let path = "/clubs/" + item._id;
+                        history.push(path, item);
+                      }   }
+                    >
+                      More Detail
+                    </Button>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+          })
 
-                    history.push(path);
-                  }
-
-                  }
-                >
-                  More Detail
-                </Button>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
-        })
-          
-        }
-      </Col>
-
-     
+          }
+        </Col>
       </div>
 
       <div className="d-flex justify-content-lg-center">
 
-      <Col md={9}>
-        {events.length ==0 ? <div></div> :  <h3>Events</h3>}
-       
-        {events.map((item, index) => {
-          return  <Card key={item._id} style={{ margin: "1%", height: "10rem" }}>
-          <Card.Header
-            style={{
-              fontWeight: "500",
-              fontSize: 20,
-              fontFamily: "Copperplate",
-            }}
-          >
-            {item.eventname}
-          </Card.Header>
-          <Card.Body style={{ margin: "0%" }}>
-            <Row>
-              <Col md={2}>
-                <Card.Img
-                  src={item.images[0]}
-                  style={{
-                    height: "5.5rem",
-                    width: "5.5rem",
-                    borderRadius: "50%",
-                    margin: "auto",
-                  }}
-                />
-              </Col>
-              <Col md={8}>
-                <p style={{ textAlign: "left", paddingTop: "4.5%" }}>
-                  {item.time}
-                </p>
-              </Col>
-              <Col md={2}>
-                <Button
-                  variant="primary"
-                  className="mt-4"
-                  onClick={() => {
-                    let path = "/events/" + item._id;
+        <Col md={9}>
+          {events.length == 0 ? <div></div> : <h3>Events</h3>}
 
-                    history.push(path);
-                  }
+          {events.map((item, index) => {
+            return <Card key={item._id} style={{ margin: "1%", height: "10rem" }}>
+              <Card.Header
+                style={{
+                  fontWeight: "500",
+                  fontSize: 20,
+                  fontFamily: "Copperplate",
+                }}
+              >
+                {item.eventname}
+              </Card.Header>
+              <Card.Body style={{ margin: "0%" }}>
+                <Row>
+                  <Col md={2}>
+                    <Card.Img
+                      src={item.images[0]}
+                      style={{
+                        height: "5.5rem",
+                        width: "5.5rem",
+                        borderRadius: "50%",
+                        margin: "auto",
+                      }}
+                    />
+                  </Col>
+                  <Col md={8}>
+                    <p style={{ textAlign: "left", paddingTop: "4.5%" }}>
+                      {item.time}
+                    </p>
+                  </Col>
+                  <Col md={2}>
+                    <Button
+                      variant="primary"
+                      className="mt-4"
+                      onClick={() => {
+                        let path = "/events/" + item._id;
 
-                  }
-                >
-                  More Detail
-                </Button>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
-        })
-          
-        }
-      </Col>
-     
+                        history.push(path, item);
+                      }
+
+                      }
+                    >
+                      More Detail
+                    </Button>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+          })
+
+          }
+        </Col>
+
       </div>
       <h4 className="featured-text">Check out Featured Clubs</h4>
       <Carousel>

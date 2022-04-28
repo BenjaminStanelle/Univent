@@ -18,10 +18,12 @@ import { useAuth } from "./shared/hooks/auth-hook";
 import Forms from "./forms/Forms";
 import Events from "./events/EventList";
 import Clubs from "./Clubs/Clubs";
+import ClubInfo from "./Clubs/ClubInfo";
 import Profile from "./Profile/Profile";
 // import Group from "./groups/pages/Group";
 // import Dashboard from "./dashboard/pages/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
+import EventInfo from "./events/EventInfo";
 
 const App = () => {
   const { token, login, logout, userId } = useAuth();
@@ -47,9 +49,10 @@ const App = () => {
 
         {/* <Route path="/:userId/places" exact></Route>
         <Route path="/groups/:groupUserId/" exact></Route> */}
-        <Route path="/events">
+        <Route path="/events" exact>
           <Events />
         </Route>
+
         {/* <Route path="/places/new" exact></Route>
         <Route path="/places/:placeId">
           <UpdatePlace />
@@ -60,6 +63,15 @@ const App = () => {
         <Route path="/account/:userId">
           <Profile />
         </Route>
+
+        <Route path="/clubs/:clubId">
+          <ClubInfo />
+        </Route>
+
+        <Route path="/events/:eventId">
+          <EventInfo />
+        </Route>
+
         <Redirect to="/" />
       </Switch>
     );
