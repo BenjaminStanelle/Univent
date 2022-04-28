@@ -196,14 +196,14 @@ const EventList = (props) => {
                     </Col>
                   </div>
 
-                  <div
+                  {/* <div
                     key={"default-radio"}
                     className="mb-3"
                     style={{ margin: "1rem" }}
                   >
                     <Form.Check type="radio" id="weekend" label="Weekend" />
                     <Form.Check type="radio" id="tomorrow" label="Tomorrow" />
-                  </div>
+                  </div> */}
                 </InputGroup>
               </Col>
 
